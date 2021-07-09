@@ -11,11 +11,13 @@ import java.awt.CardLayout;
 import java.awt.event.ItemEvent;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import static myapp.ikbook.index;
 import net.proteanit.sql.DbUtils;
 
 public class user extends javax.swing.JFrame
@@ -112,15 +114,14 @@ public class user extends javax.swing.JFrame
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         pnlcard3 = new javax.swing.JPanel();
-        pnlcard4 = new javax.swing.JPanel();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        bluepanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        greenpanel = new javax.swing.JPanel();
-        redpanel = new javax.swing.JPanel();
-        jPanelfile2 = new javax.swing.JPanel();
-        jLabel_filesearch2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        myreceipt4 = new javax.swing.JTextArea();
+        receipt_button4 = new javax.swing.JLabel();
+        jPanelform6 = new javax.swing.JPanel();
+        jLabelbookeddetailsform5 = new javax.swing.JLabel();
+        jPanelfile3 = new javax.swing.JPanel();
+        jLabel_filesearch3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CLERK'S FORM");
@@ -229,7 +230,7 @@ public class user extends javax.swing.JFrame
         jLabel2_s.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2_s.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2_s.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2_s.setText("Settings");
+        jLabel2_s.setText("Receipt");
         jLabel2_s.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
         jLabel2_s.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel2_s.setOpaque(true);
@@ -541,7 +542,7 @@ public class user extends javax.swing.JFrame
                             .addComponent(jTextField_fn, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField_ln, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                             .addComponent(jLabel7)
                             .addComponent(jTextField_number, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
@@ -614,6 +615,7 @@ public class user extends javax.swing.JFrame
         jLabel11.setForeground(new java.awt.Color(0, 102, 255));
         jLabel11.setText("Tour Location");
 
+        jTextField_id.setEditable(false);
         jTextField_id.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextField_id.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
         jTextField_id.addActionListener(new java.awt.event.ActionListener() {
@@ -752,9 +754,9 @@ public class user extends javax.swing.JFrame
                 .addGroup(pnlcard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanelform, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(pnlcard1Layout.createSequentialGroup()
-                        .addComponent(jPanel_info, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                        .addComponent(jPanel_info, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel_info1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)))
+                        .addComponent(jPanel_info1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
                 .addGap(78, 78, 78))
         );
         pnlcard1Layout.setVerticalGroup(
@@ -801,7 +803,7 @@ public class user extends javax.swing.JFrame
         jPanelfile1Layout.setHorizontalGroup(
             jPanelfile1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfile1Layout.createSequentialGroup()
-                .addContainerGap(525, Short.MAX_VALUE)
+                .addContainerGap(567, Short.MAX_VALUE)
                 .addComponent(jLabel_filesearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(259, 259, 259))
         );
@@ -885,183 +887,138 @@ public class user extends javax.swing.JFrame
 
         cardpanel.add(pnlcard2, "pnlcard2");
 
-        pnlcard3.setBackground(new java.awt.Color(153, 0, 51));
+        pnlcard3.setBackground(new java.awt.Color(255, 255, 255));
         pnlcard3.setPreferredSize(new java.awt.Dimension(844, 720));
+
+        jPanel6.setBackground(new java.awt.Color(204, 204, 255));
+
+        myreceipt4.setEditable(false);
+        myreceipt4.setColumns(20);
+        myreceipt4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        myreceipt4.setRows(5);
+        jScrollPane7.setViewportView(myreceipt4);
+
+        receipt_button4.setBackground(new java.awt.Color(51, 51, 51));
+        receipt_button4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        receipt_button4.setForeground(new java.awt.Color(255, 255, 255));
+        receipt_button4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        receipt_button4.setText("Print");
+        receipt_button4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
+        receipt_button4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        receipt_button4.setOpaque(true);
+        receipt_button4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                receipt_button4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                receipt_button4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                receipt_button4MouseExited(evt);
+            }
+        });
+
+        jPanelform6.setBackground(new java.awt.Color(0, 255, 255));
+        jPanelform6.setLayout(new java.awt.GridBagLayout());
+
+        jLabelbookeddetailsform5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabelbookeddetailsform5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabelbookeddetailsform5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelbookeddetailsform5.setText("Receipt");
+        jLabelbookeddetailsform5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 49;
+        gridBagConstraints.ipady = -4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 285, 11, 286);
+        jPanelform6.add(jLabelbookeddetailsform5, gridBagConstraints);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(276, 276, 276)
+                .addComponent(jScrollPane7)
+                .addGap(277, 277, 277))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(receipt_button4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(167, 167, 167))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jPanelform6, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanelform6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addComponent(receipt_button4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+
+        jPanelfile3.setBackground(new java.awt.Color(46, 49, 49));
+
+        jLabel_filesearch3.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_filesearch3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel_filesearch3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_filesearch3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_filesearch3.setText("Search");
+        jLabel_filesearch3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
+        jLabel_filesearch3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_filesearch3.setOpaque(true);
+        jLabel_filesearch3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_filesearch3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel_filesearch3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel_filesearch3MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelfile3Layout = new javax.swing.GroupLayout(jPanelfile3);
+        jPanelfile3.setLayout(jPanelfile3Layout);
+        jPanelfile3Layout.setHorizontalGroup(
+            jPanelfile3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelfile3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_filesearch3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(259, 259, 259))
+        );
+        jPanelfile3Layout.setVerticalGroup(
+            jPanelfile3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfile3Layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jLabel_filesearch3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout pnlcard3Layout = new javax.swing.GroupLayout(pnlcard3);
         pnlcard3.setLayout(pnlcard3Layout);
         pnlcard3Layout.setHorizontalGroup(
             pnlcard3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
+            .addComponent(jPanelfile3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlcard3Layout.setVerticalGroup(
             pnlcard3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+            .addGroup(pnlcard3Layout.createSequentialGroup()
+                .addComponent(jPanelfile3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cardpanel.add(pnlcard3, "pnlcard3");
-
-        jLayeredPane1.setBackground(new java.awt.Color(0, 0, 0));
-
-        bluepanel.setBackground(new java.awt.Color(153, 153, 255));
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable2);
-
-        javax.swing.GroupLayout bluepanelLayout = new javax.swing.GroupLayout(bluepanel);
-        bluepanel.setLayout(bluepanelLayout);
-        bluepanelLayout.setHorizontalGroup(
-            bluepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bluepanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        bluepanelLayout.setVerticalGroup(
-            bluepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bluepanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        greenpanel.setBackground(new java.awt.Color(0, 102, 0));
-
-        javax.swing.GroupLayout greenpanelLayout = new javax.swing.GroupLayout(greenpanel);
-        greenpanel.setLayout(greenpanelLayout);
-        greenpanelLayout.setHorizontalGroup(
-            greenpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
-        );
-        greenpanelLayout.setVerticalGroup(
-            greenpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 342, Short.MAX_VALUE)
-        );
-
-        redpanel.setBackground(new java.awt.Color(255, 0, 153));
-
-        javax.swing.GroupLayout redpanelLayout = new javax.swing.GroupLayout(redpanel);
-        redpanel.setLayout(redpanelLayout);
-        redpanelLayout.setHorizontalGroup(
-            redpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        redpanelLayout.setVerticalGroup(
-            redpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 505, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(redpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(236, 236, 236)
-                    .addComponent(bluepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(237, 237, 237)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(151, 151, 151)
-                    .addComponent(greenpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(151, 151, 151)))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(redpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(72, 72, 72))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(132, 132, 132)
-                    .addComponent(bluepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(133, 133, 133)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(115, 115, 115)
-                    .addComponent(greenpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(116, 116, 116)))
-        );
-        jLayeredPane1.setLayer(bluepanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(greenpanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(redpanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jPanelfile2.setBackground(new java.awt.Color(46, 49, 49));
-
-        jLabel_filesearch2.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_filesearch2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel_filesearch2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_filesearch2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_filesearch2.setText("Search");
-        jLabel_filesearch2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
-        jLabel_filesearch2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel_filesearch2.setOpaque(true);
-        jLabel_filesearch2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch2MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelfile2Layout = new javax.swing.GroupLayout(jPanelfile2);
-        jPanelfile2.setLayout(jPanelfile2Layout);
-        jPanelfile2Layout.setHorizontalGroup(
-            jPanelfile2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfile2Layout.createSequentialGroup()
-                .addContainerGap(525, Short.MAX_VALUE)
-                .addComponent(jLabel_filesearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(259, 259, 259))
-        );
-        jPanelfile2Layout.setVerticalGroup(
-            jPanelfile2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfile2Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel_filesearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout pnlcard4Layout = new javax.swing.GroupLayout(pnlcard4);
-        pnlcard4.setLayout(pnlcard4Layout);
-        pnlcard4Layout.setHorizontalGroup(
-            pnlcard4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlcard4Layout.createSequentialGroup()
-                .addComponent(jPanelfile2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(pnlcard4Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlcard4Layout.setVerticalGroup(
-            pnlcard4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlcard4Layout.createSequentialGroup()
-                .addComponent(jPanelfile2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jLayeredPane1)
-                .addGap(87, 87, 87))
-        );
-
-        cardpanel.add(pnlcard4, "pnlcard4");
 
         jSplitPane2.setRightComponent(cardpanel);
 
@@ -1075,7 +1032,7 @@ public class user extends javax.swing.JFrame
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
 
         pack();
@@ -1122,10 +1079,8 @@ public class user extends javax.swing.JFrame
 
     private void jLabel2_sMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2_sMouseClicked
         // TODO add your handling code here:
-        cardLayout.show(cardpanel, "pnlcard4");
-        greenpanel.setVisible(false);
-        redpanel.setVisible(false);
-        bluepanel.setVisible(false);
+        cardLayout.show(cardpanel, "pnlcard3");
+       
 
     }//GEN-LAST:event_jLabel2_sMouseClicked
 
@@ -1295,21 +1250,21 @@ public class user extends javax.swing.JFrame
     private void jButtonsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonsaveActionPerformed
         // TODO add your handling code here:
 
-        ik();
-        if (evt.getSource() == jButtonsave)
+         ik();        
+        if (evt.getSource() == jButtonsave) 
         {
-            try
+            try 
             {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
                 //stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                stat = con.prepareStatement("INSERT INTO newtour VALUES(?, ?, ?, ?, ?,?, ?, ?, ?, ?,?, ?)");
+                stat = con.prepareStatement("INSERT INTO mynewtour VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 String tid = jTextField_id.getText().toLowerCase().trim();
                 String tfn = jTextField_fn.getText().toLowerCase().trim();
                 String tln = jTextField_ln.getText().toLowerCase().trim();
-                String tn = jTextField_number.getText().toLowerCase().trim();
+                Long tn  = Long.parseLong(jTextField_number.getText().toLowerCase().trim());
                 String tmail = jTextField_mail.getText().toLowerCase().trim();
-                String tprice = jTextField_price.getText().trim();
+                int tprice = Integer.parseInt(jTextField_price.getText().trim());
                 String toccu = jComboBox_occupation.getSelectedItem().toString();
                 String ttlo = jComboBox_tourlocation.getSelectedItem().toString();
                 String tdays = jComboBox_days.getSelectedItem().toString();
@@ -1317,39 +1272,42 @@ public class user extends javax.swing.JFrame
                 String tbed = ((JTextField)jDatebookeddate.getDateEditor().getUiComponent()).getText();
                 //String tbgr = buttonGroup1.getSelection().getActionCommand().toString();
                 String tbgr = gender.toLowerCase().trim();
+                
 
-                stat.setString(1, tid);
-                stat.setString(2, tfn);
-                stat.setString(3, tln);
-                stat.setString(4, tn);
-                stat.setString(5, tmail);
-                stat.setString(6, tprice);
-                stat.setString(7, toccu);
-                stat.setString(8, ttlo);
-                stat.setString(9, tdays);
-                stat.setString(10, tbind);
-                stat.setString(11, tbed);
-                stat.setString(12, tbgr);
+                stat.setString(12, tid);
+                stat.setString(1, tfn);
+                stat.setString(2, tln);
+                stat.setLong(3, tn);
+                stat.setString(4, tmail);
+                stat.setInt(5, tprice);
+                stat.setString(6, toccu);
+                stat.setString(7, ttlo);
+                stat.setString(8, tdays);
+                stat.setString(9, tbind);
+                stat.setString(10, tbed);
+                stat.setString(11, tbgr);
 
                 stat.executeUpdate();
+                
+                receipt();
+                display();
 
                 JOptionPane.showMessageDialog(this, "Records have been saved");
                 int n = JOptionPane.showConfirmDialog(this, "Do you want to add more records?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                if (n == JOptionPane.YES_OPTION)
+                if (n == JOptionPane.YES_OPTION) 
                 {
                     index++;
                     reset();
-
                     System.out.println(index);
                     System.out.println(newindex);
-                }
-                else
+                } 
+                else 
                 {
-                    reset();
+                   reset();
                 }
-            }
-            catch (Exception e)
+            } 
+            catch (Exception e) 
             {
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -1357,7 +1315,71 @@ public class user extends javax.swing.JFrame
 
     }//GEN-LAST:event_jButtonsaveActionPerformed
 
-     public void display()
+             public void receipt()
+        {
+            
+                Calendar time = Calendar.getInstance();
+                time.getTime();
+                SimpleDateFormat mytime = new SimpleDateFormat("HH:mm:ss");
+                String thetime =  mytime.format(time.getTime());
+
+                  int num1;
+                    String ref ="";
+                    num1 = 1325 + (int)(Math.random()*4238);
+                    ref += num1 + 1325;
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            try {
+                stat = con.prepareStatement("select Tourid from mynewtour where Tourfn=? ");
+                stat.setString(1,jTextField_fn.getText());
+                rs = stat.executeQuery();
+
+                if (rs.next()) 
+                {
+                    String idno=rs.getString("Tourid");
+
+                    String tfn = jTextField_fn.getText().toLowerCase().trim();
+                    String tln = jTextField_ln.getText().toLowerCase().trim();
+                    String tn = jTextField_number.getText().toLowerCase().trim();
+                    String tmail = jTextField_mail.getText().toLowerCase().trim();
+                    String tprice = jTextField_price.getText().trim();
+                    String toccu = jComboBox_occupation.getSelectedItem().toString();
+                    String ttlo = jComboBox_tourlocation.getSelectedItem().toString();
+                    String tdays = jComboBox_days.getSelectedItem().toString();
+                    String tbind = ((JTextField)jDatebookingdate.getDateEditor().getUiComponent()).getText();
+                    String tbed = ((JTextField)jDatebookeddate.getDateEditor().getUiComponent()).getText();
+                    //String tbgr = buttonGroup1.getSelection().getActionCommand().toString();
+                    String tbgr = gender.toLowerCase().trim();
+
+
+                    myreceipt4.append("\tPhoenix Tours \n\n"
+                    + "Ref:\t" + ref
+                    + "\nTime:\t" + thetime 
+                    + "\nDate:\t" + tbind        
+                    + "\n--------------------------------------------"
+                    + "\nID:\t" + idno       
+                    + "\nFirst Name:\t" + tfn
+                    + "\nLast Name:\t"  + tln 
+                    + "\nPhone number:\t" + tn 
+                    + "\nEmail:\t" + tmail 
+                    + "\nPrice:\t" + tfn 
+                    + "\nFirst Name:\t" + tprice
+                    + "\nOccupation:\t" + toccu 
+                    + "\nTour Location:\t" + ttlo 
+                    + "\nNumber of Days:" + tdays 
+                    + "\nBooked date:\t" + tbed
+                    + "\nGender:\t" + tbgr
+
+                );
+            }
+
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+
+       }
+    
+    public void display()
         {
              //Display here
                 //Displaying Records
@@ -1366,25 +1388,28 @@ public class user extends javax.swing.JFrame
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
                 stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                stat = con.prepareStatement("select Tourid as 'ID', Tourfn as 'First Name', Tourln as 'Last Name', Tournumber as 'Mobile no', Tourmail as 'Email', TourPrice as 'Price', Touroccu as 'Occupation', Tourtlo as 'Tour Location', Tourdays as 'No of days', Tourbind as 'Booking Date', Tourbed as 'Tour Date', Tourbgr as 'Gender' from newtour");
+                stat = con.prepareStatement("select Tourid as 'ID', Tourfn as 'First Name', Tourln as 'Last Name', Tournumber as 'Mobile no', Tourmail as 'Email', TourPrice as 'Price', Touroccu as 'Occupation', Tourtlo as 'Tour Location', Tourdays as 'No of days', Tourbind as 'Booking Date', Tourbed as 'Tour Date', Tourbgr as 'Gender' from mynewtour");
                 rs = stat.executeQuery();
                
                 
                 //data will be added until finish 
                 while (rs.next()) 
                 {
+                
                 String id = String.valueOf(rs.getInt("ID"));
+                jTextField_id.setText(rs.getString("ID"));
                 String fn = rs.getString("First Name");
                 String ln = rs.getString("Last Name");
-                String ntn = rs.getString("Mobile no");
+                String ntn = String.valueOf(rs.getLong("Mobile no"));
                 String mail = rs.getString("Email");
-                String price = rs.getString("Price");
+                String price = String.valueOf(rs.getInt("Price"));
                 String occu = rs.getString("Occupation");
                 String tlo = rs.getString("Tour Location");
                 String days = rs.getString("No of days");
                 String bed = rs.getString("Tour Date");
                 String bind = rs.getString("Booking Date");
                 String bgr = rs.getString("Gender"); 
+                
 
 
                  //string array to store data in jtable
@@ -1407,7 +1432,6 @@ public class user extends javax.swing.JFrame
 //        tblmodel.addRow(data);
         
         }
-
 
     public void reset() {
         jTextField_id.setText(null);
@@ -1628,23 +1652,35 @@ public class user extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel_filesearch1MouseExited
 
-    private void jLabel_filesearch2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch2MouseClicked
-        // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new searchform().setVisible(true);
-            }
-        });
+    private void receipt_button4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receipt_button4MouseClicked
+        try {
+            myreceipt4.print();
+        }
+        catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_receipt_button4MouseClicked
 
-    }//GEN-LAST:event_jLabel_filesearch2MouseClicked
-
-    private void jLabel_filesearch2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch2MouseEntered
+    private void receipt_button4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receipt_button4MouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel_filesearch2MouseEntered
+    }//GEN-LAST:event_receipt_button4MouseEntered
 
-    private void jLabel_filesearch2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch2MouseExited
+    private void receipt_button4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receipt_button4MouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel_filesearch2MouseExited
+    }//GEN-LAST:event_receipt_button4MouseExited
+
+    private void jLabel_filesearch3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel_filesearch3MouseClicked
+
+    private void jLabel_filesearch3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel_filesearch3MouseEntered
+
+    private void jLabel_filesearch3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel_filesearch3MouseExited
 
     /**
      * @param args the command line arguments
@@ -1682,10 +1718,8 @@ public class user extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel bluepanel;
     private javax.swing.ButtonGroup buttonGroup1;
     public javax.swing.JPanel cardpanel;
-    private javax.swing.JPanel greenpanel;
     private javax.swing.JButton jButtonreset;
     private javax.swing.JButton jButtonsave;
     private javax.swing.JButton jButtontotal;
@@ -1716,37 +1750,56 @@ public class user extends javax.swing.JFrame
     private javax.swing.JLabel jLabel_bookingform;
     private javax.swing.JLabel jLabel_dashboard;
     private javax.swing.JLabel jLabel_filesearch1;
-    private javax.swing.JLabel jLabel_filesearch2;
+    private javax.swing.JLabel jLabel_filesearch3;
     private javax.swing.JLabel jLabel_gn1;
     private javax.swing.JLabel jLabelbookeddetailsform;
-    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JLabel jLabelbookeddetailsform1;
+    private javax.swing.JLabel jLabelbookeddetailsform2;
+    private javax.swing.JLabel jLabelbookeddetailsform3;
+    private javax.swing.JLabel jLabelbookeddetailsform5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_info;
     private javax.swing.JPanel jPanel_info1;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JPanel jPanelfile;
     private javax.swing.JPanel jPanelfile1;
-    private javax.swing.JPanel jPanelfile2;
+    private javax.swing.JPanel jPanelfile3;
     private javax.swing.JPanel jPanelform;
     private javax.swing.JPanel jPanelform1;
+    private javax.swing.JPanel jPanelform2;
+    private javax.swing.JPanel jPanelform3;
+    private javax.swing.JPanel jPanelform4;
+    private javax.swing.JPanel jPanelform6;
     private javax.swing.JRadioButton jRadioButtonfemale;
     private javax.swing.JRadioButton jRadioButtonmale;
-    private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane7;
     public javax.swing.JSplitPane jSplitPane2;
     public javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField_fn;
     private javax.swing.JTextField jTextField_id;
     public javax.swing.JTextField jTextField_ln;
     private javax.swing.JTextField jTextField_mail;
     private javax.swing.JTextField jTextField_number;
     private javax.swing.JTextField jTextField_price;
+    private javax.swing.JTextArea myreceipt;
+    private javax.swing.JTextArea myreceipt1;
+    private javax.swing.JTextArea myreceipt2;
+    private javax.swing.JTextArea myreceipt4;
     private javax.swing.JPanel pnlcard1;
     public javax.swing.JPanel pnlcard2;
     private javax.swing.JPanel pnlcard3;
-    private javax.swing.JPanel pnlcard4;
-    private javax.swing.JPanel redpanel;
+    private javax.swing.JLabel receipt_button;
+    private javax.swing.JLabel receipt_button1;
+    private javax.swing.JLabel receipt_button2;
+    private javax.swing.JLabel receipt_button4;
     private javax.swing.JLabel searchbutton;
     private javax.swing.JLabel updatebutton;
     // End of variables declaration//GEN-END:variables

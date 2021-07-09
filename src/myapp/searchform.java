@@ -118,6 +118,8 @@ public class searchform extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
+        idpanel.setBackground(new java.awt.Color(0, 255, 255));
+
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 102, 255));
         jLabel10.setText("Booking ID");
@@ -466,7 +468,7 @@ public class searchform extends javax.swing.JFrame {
             
         public ResultSet myfunction() {
         try {
-            stat = con.prepareStatement("select * from newtour where Tourid=? ");
+            stat = con.prepareStatement("select * from mynewtour where Tourid=? ");
             stat.setString(1, jTextField_ids.getText());
             rs = stat.executeQuery();
            // rs=jTextField_ids.getText();
@@ -476,9 +478,9 @@ public class searchform extends javax.swing.JFrame {
                // jTextField_ids.setText(rs.getString("Tourid"));
                 jTextField_fns.setText(rs.getString("Tourfn"));
                 jTextField_ln.setText(rs.getString("Tourln"));
-                jTextField_number.setText(rs.getString("Tournumber"));
+                jTextField_number.setText(String.valueOf(rs.getString("Tournumber")));
                 jTextField_mail.setText(rs.getString("Tourmail"));
-                jTextField_pr.setText(rs.getString("Tourprice"));
+                jTextField_pr.setText(String.valueOf(rs.getInt("Tourprice")));
                 jTextField_tourdate.setText(rs.getString("Tourbed"));
                 jTextField_tourdatebooked.setText(rs.getString("Tourbind"));
                 jTextField_dn.setText(rs.getString("Tourdays"));

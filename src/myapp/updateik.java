@@ -477,8 +477,8 @@ public class updateik extends javax.swing.JFrame {
         
          try
         {
-                selectquery = "update newtour SET Tourfn=?, Tourln=?, Tournumber=?, Tourmail=?, Tourprice=?, Touroccu=?, Tourtlo=?, Tourdays=?, Tourbind=?, Tourbed=?, Tourbgr=? where Tourid=?" ;
-                stat.setString(1, jTextField_id.getText());
+                selectquery = "update mynewtour SET Tourfn=?, Tourln=?, Tournumber=?, Tourmail=?, Tourprice=?, Touroccu=?, Tourtlo=?, Tourdays=?, Tourbind=?, Tourbed=?, Tourbgr=? where Tourid="+ jTextField_id.getText() ;
+                //stat.setString(1, jTextField_id.getText());
                 stat = con.prepareStatement(selectquery);
                
                
@@ -488,36 +488,36 @@ public class updateik extends javax.swing.JFrame {
                 
                 String tfn = jTextField_fn.getText().toLowerCase().trim();
                 String tln = jTextField_ln.getText().toLowerCase().trim();
-                String tn = jTextField_number.getText().toLowerCase().trim();
+                int tn  = Integer.parseInt(jTextField_number.getText().toLowerCase().trim());
                 String tmail = jTextField_mail.getText().toLowerCase().trim();
-                String tprice = jTextField_price.getText().trim();
+                int tprice = Integer.parseInt(jTextField_price.getText().trim());
                 String toccu = jComboBox_occupation.getSelectedItem().toString();
                 String ttlo = jComboBox_tourlocation.getSelectedItem().toString();
                 String tdays = jComboBox_days.getSelectedItem().toString();
                 String tbind = jbookingdate.getText().toLowerCase().trim();
                 String tbed = jtourdate.getText().toLowerCase().trim();
-                String tbgr = jgender.getText().toLowerCase().trim().toString();
+                String tbgr = jgender.getText().toLowerCase().trim();
                 String tid = jTextField_id.getText().toLowerCase().trim();
 
                 
                 stat.setString(1, tfn);
                 stat.setString(2, tln);
-                stat.setString(3, tn);
+                stat.setInt(3, tn);
                 stat.setString(4, tmail);
-                stat.setString(5, tprice);
+                stat.setInt(5, tprice);
                 stat.setString(6, toccu);
                 stat.setString(7, ttlo);
                 stat.setString(8, tdays);
                 stat.setString(9, tbind);
                 stat.setString(10, tbed);
                 stat.setString(11, tbgr);
-                stat.setString(12, tid);
+                //stat.setString(12, tid);
                 
                  stat.execute();
 
 
                  //string array to store data in jtable
-                 String  data[] = { tfn, tln, tn, tmail, tprice, toccu, ttlo, tdays, tbind, tbed, tbgr};
+                 //String  data[] = { tfn, tln, tn, tmail, tprice, toccu, ttlo, tdays, tbind, tbed, tbgr};
                  k.jTable1.setModel(DbUtils.resultSetToTableModel(rs));
                  
                  JOptionPane.showMessageDialog(null, "updated successfully");
@@ -539,7 +539,7 @@ public class updateik extends javax.swing.JFrame {
     private void mysearchbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mysearchbuttonMouseClicked
         // TODO add your handling code here:
          try {
-            stat = con.prepareStatement("select * from newtour where Tourid=? ");
+            stat = con.prepareStatement("select * from mynewtour where Tourid=? ");
             stat.setString(1, jTextField_id.getText());
             rs = stat.executeQuery();
            // rs=jTextField_ids.getText();
@@ -549,9 +549,9 @@ public class updateik extends javax.swing.JFrame {
                // jTextField_ids.setText(rs.getString("Tourid"));
                 jTextField_fn.setText(rs.getString("Tourfn"));
                 jTextField_ln.setText(rs.getString("Tourln"));
-                jTextField_number.setText(rs.getString("Tournumber"));
+                jTextField_number.setText(String.valueOf(rs.getString("Tournumber")));
                 jTextField_mail.setText(rs.getString("Tourmail"));
-                jTextField_price.setText(rs.getString("Tourprice"));
+                jTextField_price.setText(String.valueOf(rs.getString("Tourprice")));
                 jtourdate.setText(rs.getString("Tourbed"));
                 jbookingdate.setText(rs.getString("Tourbind"));
                 jComboBox_days.setSelectedItem(rs.getString("Tourdays"));

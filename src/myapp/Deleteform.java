@@ -8,8 +8,6 @@ package myapp;
 
 import java.sql.*;
 import java.sql.DriverManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -49,7 +47,7 @@ public class Deleteform extends javax.swing.JFrame {
         
     try
         {
-                stat = con.prepareStatement("select Tourid as 'ID', Tourfn as 'First Name', Tourln as 'Last Name', Tournumber as 'Mobile no', Tourmail as 'Email', TourPrice as 'Price', Touroccu as 'Occupation', Tourtlo as 'Tour Location', Tourdays as 'No of days', Tourbind as 'Booking Date', Tourbed as 'Tour Date', Tourbgr as 'Gender' from newtour");
+                stat = con.prepareStatement("select Tourid as 'ID', Tourfn as 'First Name', Tourln as 'Last Name', Tournumber as 'Mobile no', Tourmail as 'Email', TourPrice as 'Price', Touroccu as 'Occupation', Tourtlo as 'Tour Location', Tourdays as 'No of days', Tourbind as 'Booking Date', Tourbed as 'Tour Date', Tourbgr as 'Gender' from mynewtour");
                 rs = stat.executeQuery();
                
                 
@@ -59,9 +57,9 @@ public class Deleteform extends javax.swing.JFrame {
                String id = String.valueOf(rs.getInt("ID"));
                 String fn = rs.getString("First Name");
                 String ln = rs.getString("Last Name");
-                String ntn = rs.getString("Mobile no");
+                String ntn = String.valueOf(rs.getInt("Mobile no"));
                 String mail = rs.getString("Email");
-                String price = rs.getString("Price");
+                String price = String.valueOf(rs.getInt("Price"));
                 String occu = rs.getString("Occupation");
                 String tlo = rs.getString("Tour Location");
                 String days = rs.getString("No of days");
@@ -180,10 +178,14 @@ public class Deleteform extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(deletebutton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(357, 357, 357)
+                        .addComponent(deletebutton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jPanelform1, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanelform1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +233,7 @@ public class Deleteform extends javax.swing.JFrame {
                         if (y == JOptionPane.YES_OPTION) 
                                {
 
-                               selectquery = "DELETE FROM newtour WHERE Tourid="+value;
+                               selectquery = "DELETE FROM mynewtour WHERE Tourid="+value;
                                stat = con.prepareStatement(selectquery);
                                stat.executeUpdate();
                                display();
