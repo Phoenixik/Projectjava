@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package myapp;
 
 import com.toedter.calendar.JDateChooser;
@@ -14,36 +13,50 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import static myapp.ikbook.index;
 import net.proteanit.sql.DbUtils;
 
-public class user extends javax.swing.JFrame
+public class user extends javax.swing.JFrame {
 
-{
     String gender;
     //String data[][];
-    
-    
+
     static int index = 1;
-    
+
     int newindex = 0;
     CardLayout cardLayout;
     Connection con;
-    Statement stmt; 
+    Statement stmt;
     PreparedStatement stat;
     String selectquery;
     ResultSet rs;
+    int eiffel = 150000;
+    int pyramid = 200000;
+    int statute = 180000;
+    int ikogosi = 100000;
+    int indian = 220000;
+    int yankari = 120000;
+    int trafford = 300000;
+    int wembely = 300000;
 
-    
+    int days = 50000;
+    int week = 100000;
+    int weeks = 150000;
+    int month = 200000;
+
+    int result;
+
     public user() {
         initComponents();
-        
+
         cardLayout = (CardLayout) (cardpanel.getLayout());
 
-        
+        viewboxx();
+        getno();
+
     }
 
     /**
@@ -70,8 +83,6 @@ public class user extends javax.swing.JFrame
         cardpanel = new javax.swing.JPanel();
         pnlcard1 = new javax.swing.JPanel();
         jPanelfile = new javax.swing.JPanel();
-        searchbutton = new javax.swing.JLabel();
-        updatebutton = new javax.swing.JLabel();
         jPanelform = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel_info = new javax.swing.JPanel();
@@ -89,7 +100,6 @@ public class user extends javax.swing.JFrame
         jTextField_number = new javax.swing.JTextField();
         jComboBox_occupation = new javax.swing.JComboBox();
         jButtonreset = new javax.swing.JButton();
-        jButtonsave = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jPanel_info1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -106,9 +116,9 @@ public class user extends javax.swing.JFrame
         jDatebookeddate = new com.toedter.calendar.JDateChooser();
         jComboBox_days = new javax.swing.JComboBox();
         jButtontotal = new javax.swing.JButton();
+        jButtonsave = new javax.swing.JButton();
         pnlcard2 = new javax.swing.JPanel();
         jPanelfile1 = new javax.swing.JPanel();
-        jLabel_filesearch1 = new javax.swing.JLabel();
         jPanelform1 = new javax.swing.JPanel();
         jLabelbookeddetailsform = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -118,10 +128,15 @@ public class user extends javax.swing.JFrame
         jScrollPane7 = new javax.swing.JScrollPane();
         myreceipt4 = new javax.swing.JTextArea();
         receipt_button4 = new javax.swing.JLabel();
+        jPanelfile3 = new javax.swing.JPanel();
         jPanelform6 = new javax.swing.JPanel();
         jLabelbookeddetailsform5 = new javax.swing.JLabel();
-        jPanelfile3 = new javax.swing.JPanel();
-        jLabel_filesearch3 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        search = new javax.swing.JMenu();
+        searchid = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        searchdate = new javax.swing.JMenuItem();
+        update = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CLERK'S FORM");
@@ -312,7 +327,7 @@ public class user extends javax.swing.JFrame
                 .addComponent(jLabel2_s, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(jLabel3_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         jSplitPane2.setLeftComponent(jPanel_menu);
@@ -323,67 +338,6 @@ public class user extends javax.swing.JFrame
         pnlcard1.setBackground(new java.awt.Color(204, 204, 255));
 
         jPanelfile.setBackground(new java.awt.Color(46, 49, 49));
-
-        searchbutton.setBackground(new java.awt.Color(51, 51, 51));
-        searchbutton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        searchbutton.setForeground(new java.awt.Color(255, 255, 255));
-        searchbutton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        searchbutton.setText("Search");
-        searchbutton.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
-        searchbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        searchbutton.setOpaque(true);
-        searchbutton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchbuttonMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                searchbuttonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                searchbuttonMouseExited(evt);
-            }
-        });
-
-        updatebutton.setBackground(new java.awt.Color(51, 51, 51));
-        updatebutton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        updatebutton.setForeground(new java.awt.Color(255, 255, 255));
-        updatebutton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        updatebutton.setText("Update");
-        updatebutton.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
-        updatebutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        updatebutton.setOpaque(true);
-        updatebutton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updatebuttonMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updatebuttonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                updatebuttonMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelfileLayout = new javax.swing.GroupLayout(jPanelfile);
-        jPanelfile.setLayout(jPanelfileLayout);
-        jPanelfileLayout.setHorizontalGroup(
-            jPanelfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfileLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(searchbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(updatebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(163, 163, 163))
-        );
-        jPanelfileLayout.setVerticalGroup(
-            jPanelfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfileLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(jPanelfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updatebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
 
         jPanelform.setBackground(new java.awt.Color(0, 255, 255));
         jPanelform.setLayout(new java.awt.GridBagLayout());
@@ -401,6 +355,23 @@ public class user extends javax.swing.JFrame
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(11, 285, 11, 286);
         jPanelform.add(jLabel4, gridBagConstraints);
+
+        javax.swing.GroupLayout jPanelfileLayout = new javax.swing.GroupLayout(jPanelfile);
+        jPanelfile.setLayout(jPanelfileLayout);
+        jPanelfileLayout.setHorizontalGroup(
+            jPanelfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelfileLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(jPanelform, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(60, 60, 60))
+        );
+        jPanelfileLayout.setVerticalGroup(
+            jPanelfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelfileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jPanel_info.setPreferredSize(new java.awt.Dimension(320, 480));
 
@@ -512,16 +483,6 @@ public class user extends javax.swing.JFrame
             }
         });
 
-        jButtonsave.setBackground(new java.awt.Color(0, 255, 255));
-        jButtonsave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButtonsave.setText("Save");
-        jButtonsave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonsave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonsaveActionPerformed(evt);
-            }
-        });
-
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 102, 255));
         jLabel16.setText("Occupation");
@@ -533,6 +494,9 @@ public class user extends javax.swing.JFrame
             .addGroup(jPanel_infoLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_infoLayout.createSequentialGroup()
+                        .addComponent(jButtonreset)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel_infoLayout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -556,11 +520,7 @@ public class user extends javax.swing.JFrame
                                 .addComponent(jRadioButtonfemale))
                             .addGroup(jPanel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jComboBox_occupation, javax.swing.GroupLayout.Alignment.LEADING, 0, 237, Short.MAX_VALUE)
-                                .addComponent(jTextField_mail, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(jPanel_infoLayout.createSequentialGroup()
-                                .addComponent(jButtonsave)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonreset)))
+                                .addComponent(jTextField_mail, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGap(46, 46, 46))))
         );
         jPanel_infoLayout.setVerticalGroup(
@@ -594,10 +554,9 @@ public class user extends javax.swing.JFrame
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jRadioButtonfemale, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jRadioButtonmale, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
-                .addGroup(jPanel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonreset, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonsave)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(jButtonreset, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel_info1.setPreferredSize(new java.awt.Dimension(320, 480));
@@ -643,7 +602,8 @@ public class user extends javax.swing.JFrame
 
         jComboBox_tourlocation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jComboBox_tourlocation.setForeground(new java.awt.Color(0, 102, 255));
-        jComboBox_tourlocation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Eiffel Tower", "Pyramid of Giza", "Statute of Liberty", "Ikogosi water spring", "Indian Ocean, Maldives", "Yankari game reserve", "Old Trafford stadium", "Wembely stadium" }));
+        jComboBox_tourlocation.setMaximumRowCount(50);
+        jComboBox_tourlocation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None" }));
         jComboBox_tourlocation.setBorder(null);
         jComboBox_tourlocation.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -708,7 +668,8 @@ public class user extends javax.swing.JFrame
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDatebookingdate, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(jDatebookeddate, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jDatebookeddate, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel_info1Layout.setVerticalGroup(
             jPanel_info1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -739,10 +700,20 @@ public class user extends javax.swing.JFrame
                 .addComponent(jLabel12)
                 .addGap(6, 6, 6)
                 .addComponent(jTextField_price, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtontotal)
                 .addContainerGap())
         );
+
+        jButtonsave.setBackground(new java.awt.Color(0, 255, 255));
+        jButtonsave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonsave.setText("Save");
+        jButtonsave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonsave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonsaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlcard1Layout = new javax.swing.GroupLayout(pnlcard1);
         pnlcard1.setLayout(pnlcard1Layout);
@@ -751,25 +722,26 @@ public class user extends javax.swing.JFrame
             .addComponent(jPanelfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlcard1Layout.createSequentialGroup()
                 .addGap(83, 83, 83)
-                .addGroup(pnlcard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelform, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(pnlcard1Layout.createSequentialGroup()
-                        .addComponent(jPanel_info, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel_info1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
-                .addGap(78, 78, 78))
+                .addComponent(jPanel_info, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jPanel_info1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlcard1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonsave)
+                .addGap(392, 392, 392))
         );
         pnlcard1Layout.setVerticalGroup(
             pnlcard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlcard1Layout.createSequentialGroup()
                 .addComponent(jPanelfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addGroup(pnlcard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel_info, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel_info1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(pnlcard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel_info1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                    .addComponent(jPanel_info, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonsave)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         cardpanel.add(pnlcard1, "pnlcard1");
@@ -777,43 +749,6 @@ public class user extends javax.swing.JFrame
         pnlcard2.setBackground(new java.awt.Color(204, 204, 255));
 
         jPanelfile1.setBackground(new java.awt.Color(46, 49, 49));
-
-        jLabel_filesearch1.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_filesearch1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel_filesearch1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_filesearch1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_filesearch1.setText("Search");
-        jLabel_filesearch1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
-        jLabel_filesearch1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel_filesearch1.setOpaque(true);
-        jLabel_filesearch1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch1MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelfile1Layout = new javax.swing.GroupLayout(jPanelfile1);
-        jPanelfile1.setLayout(jPanelfile1Layout);
-        jPanelfile1Layout.setHorizontalGroup(
-            jPanelfile1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfile1Layout.createSequentialGroup()
-                .addContainerGap(567, Short.MAX_VALUE)
-                .addComponent(jLabel_filesearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(259, 259, 259))
-        );
-        jPanelfile1Layout.setVerticalGroup(
-            jPanelfile1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfile1Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel_filesearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
 
         jPanelform1.setBackground(new java.awt.Color(0, 255, 255));
         jPanelform1.setLayout(new java.awt.GridBagLayout());
@@ -831,6 +766,23 @@ public class user extends javax.swing.JFrame
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(11, 285, 11, 286);
         jPanelform1.add(jLabelbookeddetailsform, gridBagConstraints);
+
+        javax.swing.GroupLayout jPanelfile1Layout = new javax.swing.GroupLayout(jPanelfile1);
+        jPanelfile1.setLayout(jPanelfile1Layout);
+        jPanelfile1Layout.setHorizontalGroup(
+            jPanelfile1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelfile1Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jPanelform1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(57, 57, 57))
+        );
+        jPanelfile1Layout.setVerticalGroup(
+            jPanelfile1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelfile1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelform1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -866,10 +818,6 @@ public class user extends javax.swing.JFrame
             pnlcard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelfile1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlcard2Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jPanelform1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(52, 52, 52))
-            .addGroup(pnlcard2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2)
                 .addContainerGap())
@@ -879,10 +827,8 @@ public class user extends javax.swing.JFrame
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlcard2Layout.createSequentialGroup()
                 .addComponent(jPanelfile1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelform1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125))
+                .addGap(193, 193, 193))
         );
 
         cardpanel.add(pnlcard2, "pnlcard2");
@@ -918,6 +864,29 @@ public class user extends javax.swing.JFrame
             }
         });
 
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(275, 275, 275)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addComponent(receipt_button4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(174, 174, 174))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(receipt_button4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(150, Short.MAX_VALUE))
+        );
+
+        jPanelfile3.setBackground(new java.awt.Color(46, 49, 49));
+
         jPanelform6.setBackground(new java.awt.Color(0, 255, 255));
         jPanelform6.setLayout(new java.awt.GridBagLayout());
 
@@ -935,72 +904,21 @@ public class user extends javax.swing.JFrame
         gridBagConstraints.insets = new java.awt.Insets(11, 285, 11, 286);
         jPanelform6.add(jLabelbookeddetailsform5, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(276, 276, 276)
-                .addComponent(jScrollPane7)
-                .addGap(277, 277, 277))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(receipt_button4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(167, 167, 167))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanelform6, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanelform6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
-                .addGap(21, 21, 21)
-                .addComponent(receipt_button4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-        );
-
-        jPanelfile3.setBackground(new java.awt.Color(46, 49, 49));
-
-        jLabel_filesearch3.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_filesearch3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel_filesearch3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_filesearch3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_filesearch3.setText("Search");
-        jLabel_filesearch3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
-        jLabel_filesearch3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel_filesearch3.setOpaque(true);
-        jLabel_filesearch3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch3MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch3MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel_filesearch3MouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelfile3Layout = new javax.swing.GroupLayout(jPanelfile3);
         jPanelfile3.setLayout(jPanelfile3Layout);
         jPanelfile3Layout.setHorizontalGroup(
             jPanelfile3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelfile3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfile3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_filesearch3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(259, 259, 259))
+                .addComponent(jPanelform6, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
         jPanelfile3Layout.setVerticalGroup(
             jPanelfile3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelfile3Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel_filesearch3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanelfile3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelform6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlcard3Layout = new javax.swing.GroupLayout(pnlcard3);
@@ -1014,28 +932,67 @@ public class user extends javax.swing.JFrame
             pnlcard3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlcard3Layout.createSequentialGroup()
                 .addComponent(jPanelfile3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         cardpanel.add(pnlcard3, "pnlcard3");
 
         jSplitPane2.setRightComponent(cardpanel);
 
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+
+        search.setBackground(new java.awt.Color(255, 255, 255));
+        search.setBorder(null);
+        search.setText("Search");
+        search.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        searchid.setText("By ID");
+        searchid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchidActionPerformed(evt);
+            }
+        });
+        search.add(searchid);
+        search.add(jSeparator1);
+
+        searchdate.setText("By Date");
+        searchdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchdateActionPerformed(evt);
+            }
+        });
+        search.add(searchdate);
+
+        jMenuBar1.add(search);
+
+        update.setBackground(new java.awt.Color(255, 255, 255));
+        update.setBorder(null);
+        update.setText("Update");
+        update.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        update.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(update);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSplitPane2)
-                .addGap(0, 0, 0))
+            .addComponent(jSplitPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel_dashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dashboardMouseEntered
@@ -1080,7 +1037,7 @@ public class user extends javax.swing.JFrame
     private void jLabel2_sMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2_sMouseClicked
         // TODO add your handling code here:
         cardLayout.show(cardpanel, "pnlcard3");
-       
+
 
     }//GEN-LAST:event_jLabel2_sMouseClicked
 
@@ -1132,42 +1089,6 @@ public class user extends javax.swing.JFrame
         jLabel1_bk.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 255, 255)));
     }//GEN-LAST:event_jLabel1_bkMouseExited
 
-    private void searchbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchbuttonMouseClicked
-        // TODO add your handling code here:
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new searchform().setVisible(true);
-            }
-        });
-
-    }//GEN-LAST:event_searchbuttonMouseClicked
-
-    private void searchbuttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchbuttonMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchbuttonMouseEntered
-
-    private void searchbuttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchbuttonMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchbuttonMouseExited
-
-    private void updatebuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updatebuttonMouseClicked
-        // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new updateik().setVisible(true);
-            }
-        });
-    }//GEN-LAST:event_updatebuttonMouseClicked
-
-    private void updatebuttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updatebuttonMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updatebuttonMouseEntered
-
-    private void updatebuttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updatebuttonMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updatebuttonMouseExited
-
     private void jRadioButtonmaleItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonmaleItemStateChanged
         // TODO add your handling code here:
 
@@ -1213,71 +1134,61 @@ public class user extends javax.swing.JFrame
         reset();
     }//GEN-LAST:event_jButtonresetActionPerformed
 
-          public void buttonvalidate()
-        {
-            if(jRadioButtonmale.isSelected())
-            {
-                gender = "Male";
-            }
-            else if(jRadioButtonfemale.isSelected())
-            {
-                gender = "Female";
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Please fill in all data");
-            }
-        }
-          
-    public void ik() {
-        if (jTextField_fn.getText().equals("") 
-            || jTextField_ln.getText().equals("") 
-            || jTextField_number.getText().equals("") 
-            || jTextField_mail.getText().equals("") 
-            || jTextField_price.getText().equals("")
-            || jComboBox_occupation.getSelectedItem().toString().equals("") 
-            || jComboBox_tourlocation.getSelectedItem().toString().equals("") 
-            || jComboBox_days.getSelectedItem().toString().equals("")
-            || ((JTextField)jDatebookingdate.getDateEditor().getUiComponent()).getText().equals("")
-            || buttonGroup1.isSelected(null)
-            || ((JTextField)jDatebookeddate.getDateEditor().getUiComponent()).getText().equals("")) 
-        {
+    public void buttonvalidate() {
+        if (jRadioButtonmale.isSelected()) {
+            gender = "Male";
+        } else if (jRadioButtonfemale.isSelected()) {
+            gender = "Female";
+        } else {
             JOptionPane.showMessageDialog(this, "Please fill in all data");
         }
-       buttonvalidate();
-    }    
-    
-    private void jButtonsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonsaveActionPerformed
-        // TODO add your handling code here:
+    }
 
-         ik();        
-        if (evt.getSource() == jButtonsave) 
-        {
-            try 
-            {
+    public void ik() {
+        if (jTextField_fn.getText().equals("")
+                || jTextField_ln.getText().equals("")
+                || jTextField_number.getText().equals("")
+                || jTextField_mail.getText().equals("")
+                || jTextField_price.getText().equals("")
+                || jComboBox_occupation.getSelectedItem().toString().equals("")
+                || jComboBox_tourlocation.getSelectedItem().toString().equals("")
+                || jComboBox_days.getSelectedItem().toString().equals("")
+                || ((JTextField) jDatebookingdate.getDateEditor().getUiComponent()).getText().equals("")
+                || gender==("")
+                || ((JTextField) jDatebookeddate.getDateEditor().getUiComponent()).getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please fill in all data");
+        }
+        buttonvalidate();
+    }
+
+    private void jButtonsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonsaveActionPerformed
+        
+
+        ik();
+        if (evt.getSource() == jButtonsave) {
+            try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
                 //stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                stat = con.prepareStatement("INSERT INTO mynewtour VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                String tid = jTextField_id.getText().toLowerCase().trim();
+                stat = con.prepareStatement("INSERT INTO mynewtour VALUES(  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                //String tid = jTextField_id.getText().toLowerCase().trim();
                 String tfn = jTextField_fn.getText().toLowerCase().trim();
                 String tln = jTextField_ln.getText().toLowerCase().trim();
-                Long tn  = Long.parseLong(jTextField_number.getText().toLowerCase().trim());
+                String tn = jTextField_number.getText().toLowerCase().trim();
                 String tmail = jTextField_mail.getText().toLowerCase().trim();
                 int tprice = Integer.parseInt(jTextField_price.getText().trim());
                 String toccu = jComboBox_occupation.getSelectedItem().toString();
                 String ttlo = jComboBox_tourlocation.getSelectedItem().toString();
                 String tdays = jComboBox_days.getSelectedItem().toString();
-                String tbind = ((JTextField)jDatebookingdate.getDateEditor().getUiComponent()).getText();
-                String tbed = ((JTextField)jDatebookeddate.getDateEditor().getUiComponent()).getText();
+                String tbind = ((JTextField) jDatebookingdate.getDateEditor().getUiComponent()).getText();
+                String tbed = ((JTextField) jDatebookeddate.getDateEditor().getUiComponent()).getText();
                 //String tbgr = buttonGroup1.getSelection().getActionCommand().toString();
                 String tbgr = gender.toLowerCase().trim();
-                
 
-                stat.setString(12, tid);
+                // stat.setString(1, tid);
                 stat.setString(1, tfn);
                 stat.setString(2, tln);
-                stat.setLong(3, tn);
+                stat.setString(3, tn);
                 stat.setString(4, tmail);
                 stat.setInt(5, tprice);
                 stat.setString(6, toccu);
@@ -1288,119 +1199,104 @@ public class user extends javax.swing.JFrame
                 stat.setString(11, tbgr);
 
                 stat.executeUpdate();
-                
+
                 receipt();
                 display();
 
                 JOptionPane.showMessageDialog(this, "Records have been saved");
                 int n = JOptionPane.showConfirmDialog(this, "Do you want to add more records?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                if (n == JOptionPane.YES_OPTION) 
-                {
+                if (n == JOptionPane.YES_OPTION) {
                     index++;
                     reset();
                     System.out.println(index);
                     System.out.println(newindex);
-                } 
-                else 
-                {
-                   reset();
+                } else {
+                    reset();
                 }
-            } 
-            catch (Exception e) 
-            {
-                JOptionPane.showMessageDialog(null, e);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Records were not saved");
             }
         }
 
     }//GEN-LAST:event_jButtonsaveActionPerformed
 
-             public void receipt()
-        {
-            
-                Calendar time = Calendar.getInstance();
-                time.getTime();
-                SimpleDateFormat mytime = new SimpleDateFormat("HH:mm:ss");
-                String thetime =  mytime.format(time.getTime());
+    public void receipt() {
 
-                  int num1;
-                    String ref ="";
-                    num1 = 1325 + (int)(Math.random()*4238);
-                    ref += num1 + 1325;
-            ////////////////////////////////////////////////////////////////////////////////////////////
-            try {
-                stat = con.prepareStatement("select Tourid from mynewtour where Tourfn=? ");
-                stat.setString(1,jTextField_fn.getText());
-                rs = stat.executeQuery();
+        Calendar time = Calendar.getInstance();
+        time.getTime();
+        SimpleDateFormat mytime = new SimpleDateFormat("HH:mm:ss");
+        String thetime = mytime.format(time.getTime());
 
-                if (rs.next()) 
-                {
-                    String idno=rs.getString("Tourid");
+        int num1;
+        String ref = "";
+        num1 = 1325 + (int) (Math.random() * 4238);
+        ref += num1 + 1325;
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        try {
+            stat = con.prepareStatement("select Tourid from mynewtour where Tourfn=? ");
+            stat.setString(1, jTextField_fn.getText());
+            rs = stat.executeQuery();
 
-                    String tfn = jTextField_fn.getText().toLowerCase().trim();
-                    String tln = jTextField_ln.getText().toLowerCase().trim();
-                    String tn = jTextField_number.getText().toLowerCase().trim();
-                    String tmail = jTextField_mail.getText().toLowerCase().trim();
-                    String tprice = jTextField_price.getText().trim();
-                    String toccu = jComboBox_occupation.getSelectedItem().toString();
-                    String ttlo = jComboBox_tourlocation.getSelectedItem().toString();
-                    String tdays = jComboBox_days.getSelectedItem().toString();
-                    String tbind = ((JTextField)jDatebookingdate.getDateEditor().getUiComponent()).getText();
-                    String tbed = ((JTextField)jDatebookeddate.getDateEditor().getUiComponent()).getText();
-                    //String tbgr = buttonGroup1.getSelection().getActionCommand().toString();
-                    String tbgr = gender.toLowerCase().trim();
+            if (rs.next()) {
+                String idno = rs.getString("Tourid");
 
+                String tfn = jTextField_fn.getText().toLowerCase().trim();
+                String tln = jTextField_ln.getText().toLowerCase().trim();
+                String tn = jTextField_number.getText().toLowerCase().trim();
+                String tmail = jTextField_mail.getText().toLowerCase().trim();
+                String tprice = jTextField_price.getText().trim();
+                String toccu = jComboBox_occupation.getSelectedItem().toString();
+                String ttlo = jComboBox_tourlocation.getSelectedItem().toString();
+                String tdays = jComboBox_days.getSelectedItem().toString();
+                String tbind = ((JTextField) jDatebookingdate.getDateEditor().getUiComponent()).getText();
+                String tbed = ((JTextField) jDatebookeddate.getDateEditor().getUiComponent()).getText();
+                //String tbgr = buttonGroup1.getSelection().getActionCommand().toString();
+                String tbgr = gender.toLowerCase().trim();
 
-                    myreceipt4.append("\tPhoenix Tours \n\n"
-                    + "Ref:\t" + ref
-                    + "\nTime:\t" + thetime 
-                    + "\nDate:\t" + tbind        
-                    + "\n--------------------------------------------"
-                    + "\nID:\t" + idno       
-                    + "\nFirst Name:\t" + tfn
-                    + "\nLast Name:\t"  + tln 
-                    + "\nPhone number:\t" + tn 
-                    + "\nEmail:\t" + tmail 
-                    + "\nPrice:\t" + tfn 
-                    + "\nFirst Name:\t" + tprice
-                    + "\nOccupation:\t" + toccu 
-                    + "\nTour Location:\t" + ttlo 
-                    + "\nNumber of Days:" + tdays 
-                    + "\nBooked date:\t" + tbed
-                    + "\nGender:\t" + tbgr
-
+                myreceipt4.append("\tPhoenix Tours \n\n"
+                        + "Ref:\t" + ref
+                        + "\nTime:\t" + thetime
+                        + "\nDate:\t" + tbind
+                        + "\n--------------------------------------------"
+                        + "\nID:\t" + idno
+                        + "\nFirst Name:\t" + tfn
+                        + "\nLast Name:\t" + tln
+                        + "\nPhone number:\t" + tn
+                        + "\nEmail:\t" + tmail
+                        + "\nPrice:\t" + tfn
+                        + "\nFirst Name:\t" + tprice
+                        + "\nOccupation:\t" + toccu
+                        + "\nTour Location:\t" + ttlo
+                        + "\nNumber of Days:" + tdays
+                        + "\nBooked date:\t" + tbed
+                        + "\nGender:\t" + tbgr
                 );
             }
 
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Could not retrieve customer details");
+        }
 
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-            }
+    }
 
-       }
-    
-    public void display()
-        {
+    public void display() {
              //Display here
-                //Displaying Records
-        try
-        { 
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
-                stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                stat = con.prepareStatement("select Tourid as 'ID', Tourfn as 'First Name', Tourln as 'Last Name', Tournumber as 'Mobile no', Tourmail as 'Email', TourPrice as 'Price', Touroccu as 'Occupation', Tourtlo as 'Tour Location', Tourdays as 'No of days', Tourbind as 'Booking Date', Tourbed as 'Tour Date', Tourbgr as 'Gender' from mynewtour");
-                rs = stat.executeQuery();
-               
-                
-                //data will be added until finish 
-                while (rs.next()) 
-                {
-                
+        //Displaying Records
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stat = con.prepareStatement("select Tourid as 'ID', Tourfn as 'First Name', Tourln as 'Last Name', Tournumber as 'Mobile no', Tourmail as 'Email', TourPrice as 'Price', Touroccu as 'Occupation', Tourtlo as 'Tour Location', Tourdays as 'No of days', Tourbind as 'Booking Date', Tourbed as 'Tour Date', Tourbgr as 'Gender' from mynewtour");
+            rs = stat.executeQuery();
+
+            //data will be added until finish 
+            while (rs.next()) {
+
                 String id = String.valueOf(rs.getInt("ID"));
-                jTextField_id.setText(rs.getString("ID"));
                 String fn = rs.getString("First Name");
                 String ln = rs.getString("Last Name");
-                String ntn = String.valueOf(rs.getLong("Mobile no"));
+                String ntn = rs.getString("Mobile no");
                 String mail = rs.getString("Email");
                 String price = String.valueOf(rs.getInt("Price"));
                 String occu = rs.getString("Occupation");
@@ -1408,30 +1304,21 @@ public class user extends javax.swing.JFrame
                 String days = rs.getString("No of days");
                 String bed = rs.getString("Tour Date");
                 String bind = rs.getString("Booking Date");
-                String bgr = rs.getString("Gender"); 
-                
+                String bgr = rs.getString("Gender");
 
+                //string array to store data in jtable
+                String data[] = {id, fn, ln, ntn, mail, price, occu, tlo, days, bed, bind, bgr};
+                jTable1.setEnabled(false);
+                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                DefaultTableModel tblmodel = (DefaultTableModel) jTable1.getModel();
+                tblmodel.addRow(data);
+            }
 
-                 //string array to store data in jtable
-                 String  data[] = {id, fn, ln, ntn, mail, price, occu, tlo, days, bed, bind, bgr};
-                 jTable1.setEnabled(false);
-                 jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-                 DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();
-                 tblmodel.addRow(data);
-                }
-               //DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();
-                //tblmodel.addRow(data);
-        } 
-            
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "error in retrieving record");
         }
-         
-//        DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();
-//        tblmodel.addRow(data);
-        
-        }
+
+    }
 
     public void reset() {
         jTextField_id.setText(null);
@@ -1446,19 +1333,18 @@ public class user extends javax.swing.JFrame
         jDatebookingdate.setCalendar(null);
         jDatebookeddate.setCalendar(null);
         buttonGroup1.clearSelection();
-        
 
-    }    
-    
+    }
+
     private void jTextField_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_idActionPerformed
         // TODO add your handling code here:
         //        for (int i=1; i<101; i++)
         //        {
-            //            if (index == 1) {
-                //                String addtime = String.valueOf(index);
-                //                jTextField_id.setText(addtime);
-                //            }
-            //        }
+        //            if (index == 1) {
+        //                String addtime = String.valueOf(index);
+        //                jTextField_id.setText(addtime);
+        //            }
+        //        }
     }//GEN-LAST:event_jTextField_idActionPerformed
 
     private void jTextField_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_priceActionPerformed
@@ -1473,192 +1359,86 @@ public class user extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_tourlocationActionPerformed
 
+    public void viewboxx() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
+            //stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stat = con.prepareStatement("SELECT * from tourtable");
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+
+                String aa = rs.getString("Tourtlo");
+                DefaultComboBoxModel model = (DefaultComboBoxModel) jComboBox_tourlocation.getModel();
+                model.addElement(aa);
+
+            }
+            //con.close();
+            //if (jButtonsave.isSelected()) {jComboBox_tourlocation.removeAllItems();}
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error occured while retrieving location details");
+        }
+
+    }
+
+    public void getno() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
+            stat = con.prepareStatement("SELECT Tourtlo, Tourprice from tourtable where Tourtlo = ?");
+            stat.setString(1, jComboBox_tourlocation.getSelectedItem().toString());
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+
+                String cc = rs.getString("Tourtlo");
+//                stat= con.prepareStatement("SELECT Tourpricelo from pricetable where Tid = ?");
+//                rs = stat.executeQuery();
+
+                int bb = rs.getInt("Tourprice");
+
+                if ((jComboBox_tourlocation.getSelectedItem().equals(cc)) && jComboBox_days.getSelectedItem().equals("3 days")) {
+                    result = bb + days;
+                    String total = String.valueOf(result);
+                    jTextField_price.setText(total);
+                } else if ((jComboBox_tourlocation.getSelectedItem().equals(cc)) && jComboBox_days.getSelectedItem().equals("1 week")) {
+                    result = bb + week;
+                    String total = String.valueOf(result);
+                    jTextField_price.setText(total);
+                } else if ((jComboBox_tourlocation.getSelectedItem().equals(cc)) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
+                    result = bb + weeks;
+                    String total = String.valueOf(result);
+                    jTextField_price.setText(total);
+                } else if ((jComboBox_tourlocation.getSelectedItem().equals(cc)) && jComboBox_days.getSelectedItem().equals("1 month")) {
+                    result = bb + month;
+                    String total = String.valueOf(result);
+                    jTextField_price.setText(total);
+                }
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error occurred while retrieving from database");
+        }
+
+    }
+
     private void jButtontotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtontotalMouseClicked
         // TODO add your handling code here:
-        int eiffel = 150000;
-        int pyramid = 200000;
-        int statute = 180000;
-        int ikogosi = 100000;
-        int indian = 220000;
-        int yankari = 120000;
-        int trafford = 300000;
-        int wembely = 300000;
-
-        int days = 50000;
-        int week = 100000;
-        int weeks = 150000;
-        int month = 200000;
-
-        int result;
-
-        //eiffel
-        if ((jComboBox_tourlocation.getSelectedItem().equals("Eiffel Tower")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = eiffel + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Eiffel Tower")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = eiffel + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Eiffel Tower")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = eiffel + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Eiffel Tower")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = eiffel + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //pyramid
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Pyramid of Giza")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = pyramid + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Pyramid of Giza")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = pyramid + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Pyramid of Giza")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = pyramid + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Pyramid of Giza")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = pyramid + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //statute
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Statute of Liberty")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = statute + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Statute of Liberty")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = statute + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Statute of Liberty")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = statute + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Statute of Liberty")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = statute + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //ikogosi
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Ikogosi water spring")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = ikogosi + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Ikogosi water spring")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = ikogosi + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Ikogosi water spring")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = ikogosi + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Ikogosi water spring")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = ikogosi + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //indian ocean
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Indian Ocean, Maldives")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = indian + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Indian Ocean, Maldives")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = indian + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Indian Ocean, Maldives")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = indian + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Indian Ocean, Maldives")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = indian + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //yankari reserve
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Yankari game reserve")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = yankari + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Yankari game reserve")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = yankari + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Yankari game reserve")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = yankari + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Yankari game reserve")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = yankari + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //old trafford
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Old Trafford stadium")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = trafford + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Old Trafford stadium")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = trafford + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Old Trafford stadium")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = trafford + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Old Trafford stadium")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = trafford + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //wembely
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Wembely stadium")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = wembely + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Wembely stadium")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = wembely + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Wembely stadium")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = wembely + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Wembely stadium")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = wembely + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        }
+        getno();
     }//GEN-LAST:event_jButtontotalMouseClicked
 
     private void jButtontotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtontotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtontotalActionPerformed
 
-    private void jLabel_filesearch1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch1MouseClicked
-        // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new searchform().setVisible(true);
-            }
-        });
-
-    }//GEN-LAST:event_jLabel_filesearch1MouseClicked
-
-    private void jLabel_filesearch1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel_filesearch1MouseEntered
-
-    private void jLabel_filesearch1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel_filesearch1MouseExited
-
     private void receipt_button4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receipt_button4MouseClicked
         try {
             myreceipt4.print();
-        }
-        catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error occurred whle printing");
         }
     }//GEN-LAST:event_receipt_button4MouseClicked
 
@@ -1670,17 +1450,32 @@ public class user extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_receipt_button4MouseExited
 
-    private void jLabel_filesearch3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch3MouseClicked
+    private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel_filesearch3MouseClicked
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new updateik().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_updateMouseClicked
 
-    private void jLabel_filesearch3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch3MouseEntered
+    private void searchidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel_filesearch3MouseEntered
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new searchform().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_searchidActionPerformed
 
-    private void jLabel_filesearch3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearch3MouseExited
+    private void searchdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel_filesearch3MouseExited
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new searchid().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_searchdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1749,18 +1544,11 @@ public class user extends javax.swing.JFrame
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_bookingform;
     private javax.swing.JLabel jLabel_dashboard;
-    private javax.swing.JLabel jLabel_filesearch1;
-    private javax.swing.JLabel jLabel_filesearch3;
     private javax.swing.JLabel jLabel_gn1;
     private javax.swing.JLabel jLabelbookeddetailsform;
-    private javax.swing.JLabel jLabelbookeddetailsform1;
-    private javax.swing.JLabel jLabelbookeddetailsform2;
-    private javax.swing.JLabel jLabelbookeddetailsform3;
     private javax.swing.JLabel jLabelbookeddetailsform5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_info;
     private javax.swing.JPanel jPanel_info1;
@@ -1770,17 +1558,12 @@ public class user extends javax.swing.JFrame
     private javax.swing.JPanel jPanelfile3;
     private javax.swing.JPanel jPanelform;
     private javax.swing.JPanel jPanelform1;
-    private javax.swing.JPanel jPanelform2;
-    private javax.swing.JPanel jPanelform3;
-    private javax.swing.JPanel jPanelform4;
     private javax.swing.JPanel jPanelform6;
     private javax.swing.JRadioButton jRadioButtonfemale;
     private javax.swing.JRadioButton jRadioButtonmale;
     public javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     public javax.swing.JSplitPane jSplitPane2;
     public javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField_fn;
@@ -1789,18 +1572,14 @@ public class user extends javax.swing.JFrame
     private javax.swing.JTextField jTextField_mail;
     private javax.swing.JTextField jTextField_number;
     private javax.swing.JTextField jTextField_price;
-    private javax.swing.JTextArea myreceipt;
-    private javax.swing.JTextArea myreceipt1;
-    private javax.swing.JTextArea myreceipt2;
     private javax.swing.JTextArea myreceipt4;
     private javax.swing.JPanel pnlcard1;
     public javax.swing.JPanel pnlcard2;
     private javax.swing.JPanel pnlcard3;
-    private javax.swing.JLabel receipt_button;
-    private javax.swing.JLabel receipt_button1;
-    private javax.swing.JLabel receipt_button2;
     private javax.swing.JLabel receipt_button4;
-    private javax.swing.JLabel searchbutton;
-    private javax.swing.JLabel updatebutton;
+    private javax.swing.JMenu search;
+    private javax.swing.JMenuItem searchdate;
+    private javax.swing.JMenuItem searchid;
+    private javax.swing.JMenu update;
     // End of variables declaration//GEN-END:variables
 }

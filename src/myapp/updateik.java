@@ -1,25 +1,38 @@
-
 package myapp;
 
 import com.toedter.calendar.JDateChooser;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import net.proteanit.sql.DbUtils;
 
-
-
 public class updateik extends javax.swing.JFrame {
 
-       Connection con;
+    Connection con;
     Statement stmt;
     PreparedStatement stat;
     String selectquery;
     ResultSet rs;
-    
+    int eiffel = 150000;
+    int pyramid = 200000;
+    int statute = 180000;
+    int ikogosi = 100000;
+    int indian = 220000;
+    int yankari = 120000;
+    int trafford = 300000;
+    int wembely = 300000;
+
+    int days = 50000;
+    int week = 100000;
+    int weeks = 150000;
+    int month = 200000;
+
+    int result;
+
     public updateik() {
-           try {
+        try {
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
@@ -27,11 +40,12 @@ public class updateik extends javax.swing.JFrame {
             stmt = con.createStatement();
 
         } catch (Exception e) {
-            System.out.println("Error : " + e);
+            System.out.println("Error : " + "Could not connect to server");
         }
-            
+
         initComponents();
-        
+        viewboxx();
+
     }
 
     /**
@@ -65,7 +79,7 @@ public class updateik extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jComboBox_days = new javax.swing.JComboBox();
-        search = new javax.swing.JButton();
+        total = new javax.swing.JButton();
         jbookingdate = new javax.swing.JTextField();
         jtourdate = new javax.swing.JTextField();
         updatebutton = new javax.swing.JButton();
@@ -198,18 +212,18 @@ public class updateik extends javax.swing.JFrame {
         jComboBox_days.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "3 days", "1 week", "2 weeks", "1 month" }));
         jComboBox_days.setBorder(null);
 
-        search.setBackground(new java.awt.Color(0, 255, 255));
-        search.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        search.setText("Total");
-        search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        search.addMouseListener(new java.awt.event.MouseAdapter() {
+        total.setBackground(new java.awt.Color(0, 255, 255));
+        total.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        total.setText("Total");
+        total.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        total.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchMouseClicked(evt);
+                totalMouseClicked(evt);
             }
         });
-        search.addActionListener(new java.awt.event.ActionListener() {
+        total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
+                totalActionPerformed(evt);
             }
         });
 
@@ -339,7 +353,7 @@ public class updateik extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(search, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(total, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(53, 53, 53))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_infoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -403,7 +417,7 @@ public class updateik extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jgender, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search))
+                    .addComponent(total))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(updatebutton)
                 .addContainerGap())
@@ -432,6 +446,7 @@ public class updateik extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField_lnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_lnActionPerformed
@@ -473,62 +488,51 @@ public class updateik extends javax.swing.JFrame {
 //                String bed = rs.getString("tbed");
 //                String bgr = rs.getString("tbgr"); 
         ikbook k = new ikbook();
-        
-        
-         try
-        {
-                selectquery = "update mynewtour SET Tourfn=?, Tourln=?, Tournumber=?, Tourmail=?, Tourprice=?, Touroccu=?, Tourtlo=?, Tourdays=?, Tourbind=?, Tourbed=?, Tourbgr=? where Tourid="+ jTextField_id.getText() ;
-                //stat.setString(1, jTextField_id.getText());
-                stat = con.prepareStatement(selectquery);
-               
-               
-                
+
+        try {
+            selectquery = "update mynewtour SET Tourfn=?, Tourln=?, Tournumber=?, Tourmail=?, Tourprice=?, Touroccu=?, Tourtlo =?, Tourdays=?, Tourbind=?, Tourbed=?, Tourbgr=? where Tourid=" + jTextField_id.getText();
+            //stat.setString(1, jTextField_id.getText());
+            stat = con.prepareStatement(selectquery);
+
                 //data will be added until finish 
-                
-                
-                String tfn = jTextField_fn.getText().toLowerCase().trim();
-                String tln = jTextField_ln.getText().toLowerCase().trim();
-                int tn  = Integer.parseInt(jTextField_number.getText().toLowerCase().trim());
-                String tmail = jTextField_mail.getText().toLowerCase().trim();
-                int tprice = Integer.parseInt(jTextField_price.getText().trim());
-                String toccu = jComboBox_occupation.getSelectedItem().toString();
-                String ttlo = jComboBox_tourlocation.getSelectedItem().toString();
-                String tdays = jComboBox_days.getSelectedItem().toString();
-                String tbind = jbookingdate.getText().toLowerCase().trim();
-                String tbed = jtourdate.getText().toLowerCase().trim();
-                String tbgr = jgender.getText().toLowerCase().trim();
-                String tid = jTextField_id.getText().toLowerCase().trim();
+            String tfn = jTextField_fn.getText().toLowerCase().trim();
+            String tln = jTextField_ln.getText().toLowerCase().trim();
+            String tn = jTextField_number.getText().toLowerCase().trim();
+            String tmail = jTextField_mail.getText().toLowerCase().trim();
+            int tprice = Integer.parseInt(jTextField_price.getText().trim());
+            String toccu = jComboBox_occupation.getSelectedItem().toString();
+            String ttlo = jComboBox_tourlocation.getSelectedItem().toString();
+            String tdays = jComboBox_days.getSelectedItem().toString();
+            String tbind = jbookingdate.getText().toLowerCase().trim();
+            String tbed = jtourdate.getText().toLowerCase().trim();
+            String tbgr = jgender.getText().toLowerCase().trim();
+            String tid = jTextField_id.getText().toLowerCase().trim();
 
-                
-                stat.setString(1, tfn);
-                stat.setString(2, tln);
-                stat.setInt(3, tn);
-                stat.setString(4, tmail);
-                stat.setInt(5, tprice);
-                stat.setString(6, toccu);
-                stat.setString(7, ttlo);
-                stat.setString(8, tdays);
-                stat.setString(9, tbind);
-                stat.setString(10, tbed);
-                stat.setString(11, tbgr);
+            stat.setString(1, tfn);
+            stat.setString(2, tln);
+            stat.setString(3, tn);
+            stat.setString(4, tmail);
+            stat.setInt(5, tprice);
+            stat.setString(6, toccu);
+            stat.setString(7, ttlo);
+            stat.setString(8, tdays);
+            stat.setString(9, tbind);
+            stat.setString(10, tbed);
+            stat.setString(11, tbgr);
                 //stat.setString(12, tid);
-                
-                 stat.execute();
 
+            stat.execute();
 
                  //string array to store data in jtable
-                 //String  data[] = { tfn, tln, tn, tmail, tprice, toccu, ttlo, tdays, tbind, tbed, tbgr};
-                 k.jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-                 
-                 JOptionPane.showMessageDialog(null, "updated successfully");
-                
+            //String  data[] = { tfn, tln, tn, tmail, tprice, toccu, ttlo, tdays, tbind, tbed, tbgr};
+            k.jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+
+            JOptionPane.showMessageDialog(null, "updated successfully");
+
                //DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();
-                //tblmodel.addRow(data);
-        } 
-            
-        catch (Exception e) 
-        {
-            JOptionPane.showMessageDialog(null, e);
+            //tblmodel.addRow(data);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Could not update to server");
         }
     }//GEN-LAST:event_updatebuttonActionPerformed
 
@@ -538,18 +542,17 @@ public class updateik extends javax.swing.JFrame {
 
     private void mysearchbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mysearchbuttonMouseClicked
         // TODO add your handling code here:
-         try {
+        try {
             stat = con.prepareStatement("select * from mynewtour where Tourid=? ");
             stat.setString(1, jTextField_id.getText());
             rs = stat.executeQuery();
            // rs=jTextField_ids.getText();
-            
-            
+
             if (rs.next()) {
-               // jTextField_ids.setText(rs.getString("Tourid"));
+                // jTextField_ids.setText(rs.getString("Tourid"));
                 jTextField_fn.setText(rs.getString("Tourfn"));
                 jTextField_ln.setText(rs.getString("Tourln"));
-                jTextField_number.setText(String.valueOf(rs.getString("Tournumber")));
+                jTextField_number.setText(rs.getString("Tournumber"));
                 jTextField_mail.setText(rs.getString("Tourmail"));
                 jTextField_price.setText(String.valueOf(rs.getString("Tourprice")));
                 jtourdate.setText(rs.getString("Tourbed"));
@@ -559,10 +562,9 @@ public class updateik extends javax.swing.JFrame {
                 jgender.setText(rs.getString("Tourbgr"));
                 jComboBox_occupation.setSelectedItem(rs.getString("Touroccu"));
             }
-          
-            
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "Please fill in correct ID");
         }
     }//GEN-LAST:event_mysearchbuttonMouseClicked
 
@@ -582,167 +584,81 @@ public class updateik extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbookingdateActionPerformed
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+    private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_searchActionPerformed
+    }//GEN-LAST:event_totalActionPerformed
 
-    private void searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseClicked
-        // TODO add your handling code here:
-        int eiffel = 150000;
-        int pyramid = 200000;
-        int statute = 180000;
-        int ikogosi = 100000;
-        int indian = 220000;
-        int yankari = 120000;
-        int trafford = 300000;
-        int wembely = 300000;
+    public void viewboxx() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
+            //stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stat = con.prepareStatement("SELECT * from tourtable");
+            rs = stat.executeQuery();
 
-        int days = 50000;
-        int week = 100000;
-        int weeks = 150000;
-        int month = 200000;
+            while (rs.next()) {
 
-        int result;
+                String aa = rs.getString("Tourtlo");
+                DefaultComboBoxModel model = (DefaultComboBoxModel) jComboBox_tourlocation.getModel();
+                model.addElement(aa);
 
-        //eiffel
-        if ((jComboBox_tourlocation.getSelectedItem().equals("Eiffel Tower")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = eiffel + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Eiffel Tower")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = eiffel + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Eiffel Tower")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = eiffel + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Eiffel Tower")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = eiffel + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //pyramid
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Pyramid of Giza")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = pyramid + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Pyramid of Giza")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = pyramid + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Pyramid of Giza")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = pyramid + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Pyramid of Giza")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = pyramid + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //statute
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Statute of Liberty")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = statute + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Statute of Liberty")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = statute + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Statute of Liberty")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = statute + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Statute of Liberty")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = statute + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //ikogosi
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Ikogosi water spring")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = ikogosi + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Ikogosi water spring")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = ikogosi + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Ikogosi water spring")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = ikogosi + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Ikogosi water spring")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = ikogosi + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //indian ocean
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Indian Ocean, Maldives")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = indian + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Indian Ocean, Maldives")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = indian + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Indian Ocean, Maldives")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = indian + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Indian Ocean, Maldives")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = indian + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //yankari reserve
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Yankari game reserve")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = yankari + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Yankari game reserve")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = yankari + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Yankari game reserve")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = yankari + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Yankari game reserve")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = yankari + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //old trafford
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Old Trafford stadium")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = trafford + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Old Trafford stadium")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = trafford + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Old Trafford stadium")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = trafford + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Old Trafford stadium")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = trafford + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } //wembely
-        else if ((jComboBox_tourlocation.getSelectedItem().equals("Wembely stadium")) && jComboBox_days.getSelectedItem().equals("3 days")) {
-            result = wembely + days;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Wembely stadium")) && jComboBox_days.getSelectedItem().equals("1 week")) {
-            result = wembely + week;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Wembely stadium")) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
-            result = wembely + weeks;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
-        } else if ((jComboBox_tourlocation.getSelectedItem().equals("Wembely stadium")) && jComboBox_days.getSelectedItem().equals("1 month")) {
-            result = wembely + month;
-            String total = String.valueOf(result);
-            jTextField_price.setText(total);
+            }
+            //con.close();
+            //if (jButtonsave.isSelected()) {jComboBox_tourlocation.removeAllItems();}
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
         }
-    }//GEN-LAST:event_searchMouseClicked
+
+    }
+
+    public void getno() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
+            stat = con.prepareStatement("SELECT Tourtlo, Tourprice from tourtable where Tourtlo = ?");
+            stat.setString(1, jComboBox_tourlocation.getSelectedItem().toString());
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+
+                String cc = rs.getString("Tourtlo");
+//                stat= con.prepareStatement("SELECT Tourpricelo from pricetable where Tid = ?");
+//                rs = stat.executeQuery();
+
+                int bb = rs.getInt("Tourprice");
+
+                if ((jComboBox_tourlocation.getSelectedItem().equals(cc)) && jComboBox_days.getSelectedItem().equals("3 days")) {
+                    result = bb + days;
+                    String total = String.valueOf(result);
+                    jTextField_price.setText(total);
+                } else if ((jComboBox_tourlocation.getSelectedItem().equals(cc)) && jComboBox_days.getSelectedItem().equals("1 week")) {
+                    result = bb + week;
+                    String total = String.valueOf(result);
+                    jTextField_price.setText(total);
+                } else if ((jComboBox_tourlocation.getSelectedItem().equals(cc)) && jComboBox_days.getSelectedItem().equals("2 weeks")) {
+                    result = bb + weeks;
+                    String total = String.valueOf(result);
+                    jTextField_price.setText(total);
+                } else if ((jComboBox_tourlocation.getSelectedItem().equals("cc")) && jComboBox_days.getSelectedItem().equals("1 month")) {
+                    result = bb + month;
+                    String total = String.valueOf(result);
+                    jTextField_price.setText(total);
+                }
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+
+    }
+
+    private void totalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_totalMouseClicked
+        // TODO add your handling code here:
+        getno();
+    }//GEN-LAST:event_totalMouseClicked
 
     private void jComboBox_tourlocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tourlocationActionPerformed
         // TODO add your handling code here:
@@ -821,7 +737,7 @@ public class updateik extends javax.swing.JFrame {
     private javax.swing.JTextField jgender;
     private javax.swing.JTextField jtourdate;
     private javax.swing.JButton mysearchbutton;
-    private javax.swing.JButton search;
+    private javax.swing.JButton total;
     private javax.swing.JButton updatebutton;
     // End of variables declaration//GEN-END:variables
 }

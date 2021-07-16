@@ -1,34 +1,20 @@
 use Library
-
-create table mynewtour( 
-
-Tourid int IDENTITY(0001,1) PRIMARY KEY, 
-Tourfn varchar(20),
-Tourln varchar(20),
-Tournumber BIGINT,
-Tourmail varchar(50),
-Tourprice int,
-Touroccu varchar(50),
-Tourtlo varchar(50) FOREIGN KEY REFERENCES tourtable(Tourtlo),
-Tourdays varchar(50),
-Tourbind varchar(50),
-Tourbed varchar(50),
-Tourbgr varchar(10),
-Refno int, 
-
+ 
+create table pricetable(
+Tid int IDENTITY(1,1),
+Tourprice int PRIMARY KEY
 )
-
 create table tourtable(
-
-Tid int IDENTITY(1,0001),
-Tourtlo varchar(50) PRIMARY KEY
+Tiid int IDENTITY(1,1),
+Tourtlo varchar(50) PRIMARY KEY,
+Tourprice int FOREIGN KEY REFERENCES pricetable(Tourprice)
 )
-create table mynewtour( 
 
-Tourid int IDENTITY(0001,1) PRIMARY KEY, 
+create table mynewtour( 
+Tourid int IDENTITY(1,1) PRIMARY KEY, 
 Tourfn varchar(20),
 Tourln varchar(20),
-Tournumber BIGINT,
+Tournumber varchar(11),
 Tourmail varchar(50),
 Tourprice int,
 Touroccu varchar(50),
@@ -36,7 +22,18 @@ Tourtlo varchar(50) FOREIGN KEY REFERENCES tourtable(Tourtlo),
 Tourdays varchar(50),
 Tourbind varchar(50),
 Tourbed varchar(50),
-Tourbgr varchar(10),
-Refno int, 
-
+Tourbgr varchar(10)
 )
+
+create table validate(
+loginid int IDENTITY(1,1) PRIMARY KEY,
+adminname varchar(20),
+adminpass varchar(20),
+username varchar(20),
+userpass varchar(20)
+)
+
+INSERT into validate (adminname, adminpass, username, userpass) values
+('admin', 'admin', 'user', 'user')
+INSERT into validate (adminname, adminpass, username, userpass) values
+('myadmin', 'adminpass', 'user', 'user')

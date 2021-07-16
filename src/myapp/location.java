@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package myapp;
 
 import java.sql.*;
@@ -20,9 +19,9 @@ public class location extends javax.swing.JFrame {
     PreparedStatement stat;
     String selectquery;
     ResultSet rs;
-    
+
     public location() {
-               try {
+        try {
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
@@ -30,10 +29,11 @@ public class location extends javax.swing.JFrame {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
         } catch (Exception e) {
-            System.out.println("Error : " + e);
+            System.out.println("Error : " + "Could not connect to server");
         }
         initComponents();
         view();
+        //viewbox();
     }
 
     /**
@@ -53,13 +53,12 @@ public class location extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         deletebutton = new javax.swing.JLabel();
-        view = new javax.swing.JLabel();
-        idpanel1 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jComboBox_tourlocation = new javax.swing.JComboBox();
-        jComboBox_tourlocation1 = new javax.swing.JComboBox();
+        idpanel2 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        Pricefield = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("EDIT LOCATION");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -89,16 +88,19 @@ public class location extends javax.swing.JFrame {
             .addGroup(idpanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(idpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(tourfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(idpanelLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(200, 200, 200))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, idpanelLayout.createSequentialGroup()
+                        .addComponent(tourfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         idpanelLayout.setVerticalGroup(
             idpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(idpanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tourfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -125,16 +127,16 @@ public class location extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "SNO", "Locations"
+                "SNO", "Locations", "Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -163,141 +165,72 @@ public class location extends javax.swing.JFrame {
             }
         });
 
-        view.setBackground(new java.awt.Color(204, 204, 255));
-        view.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        view.setForeground(new java.awt.Color(255, 255, 255));
-        view.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        view.setText("View");
-        view.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 255, 255)));
-        view.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        view.setOpaque(true);
-        view.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                viewMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                viewMouseExited(evt);
-            }
-        });
+        idpanel2.setBackground(new java.awt.Color(0, 255, 255));
 
-        idpanel1.setBackground(new java.awt.Color(0, 255, 255));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 102, 255));
+        jLabel12.setText("Price");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel11.setText("Location");
-
-        jComboBox_tourlocation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jComboBox_tourlocation.setForeground(new java.awt.Color(0, 102, 255));
-        jComboBox_tourlocation.setBorder(null);
-        jComboBox_tourlocation.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox_tourlocationItemStateChanged(evt);
-            }
-        });
-        jComboBox_tourlocation.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jComboBox_tourlocationFocusLost(evt);
-            }
-        });
-        jComboBox_tourlocation.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jComboBox_tourlocationMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jComboBox_tourlocationMouseReleased(evt);
-            }
-        });
-        jComboBox_tourlocation.addActionListener(new java.awt.event.ActionListener() {
+        Pricefield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Pricefield.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        Pricefield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_tourlocationActionPerformed(evt);
+                PricefieldActionPerformed(evt);
             }
         });
-        jComboBox_tourlocation.addKeyListener(new java.awt.event.KeyAdapter() {
+        Pricefield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jComboBox_tourlocationKeyReleased(evt);
+                PricefieldKeyReleased(evt);
             }
         });
 
-        javax.swing.GroupLayout idpanel1Layout = new javax.swing.GroupLayout(idpanel1);
-        idpanel1.setLayout(idpanel1Layout);
-        idpanel1Layout.setHorizontalGroup(
-            idpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(idpanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout idpanel2Layout = new javax.swing.GroupLayout(idpanel2);
+        idpanel2.setLayout(idpanel2Layout);
+        idpanel2Layout.setHorizontalGroup(
+            idpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(idpanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(idpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox_tourlocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(idpanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(0, 190, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(idpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(idpanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(200, 200, 200))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, idpanel2Layout.createSequentialGroup()
+                        .addComponent(Pricefield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
-        idpanel1Layout.setVerticalGroup(
-            idpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(idpanel1Layout.createSequentialGroup()
+        idpanel2Layout.setVerticalGroup(
+            idpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(idpanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11)
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox_tourlocation, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Pricefield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jComboBox_tourlocation1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jComboBox_tourlocation1.setForeground(new java.awt.Color(0, 102, 255));
-        jComboBox_tourlocation1.setBorder(null);
-        jComboBox_tourlocation1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox_tourlocation1ItemStateChanged(evt);
-            }
-        });
-        jComboBox_tourlocation1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jComboBox_tourlocation1FocusLost(evt);
-            }
-        });
-        jComboBox_tourlocation1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jComboBox_tourlocation1MouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jComboBox_tourlocation1MouseReleased(evt);
-            }
-        });
-        jComboBox_tourlocation1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_tourlocation1ActionPerformed(evt);
-            }
-        });
-        jComboBox_tourlocation1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jComboBox_tourlocation1KeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(136, 136, 136)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(idpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deletebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(idpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(idpanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox_tourlocation1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(idpanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                        .addGap(242, 242, 242)
+                        .addComponent(addbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 40, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(deletebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,23 +238,14 @@ public class location extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(idpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(addbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(deletebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idpanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idpanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox_tourlocation1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(deletebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -336,124 +260,123 @@ public class location extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tourfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourfieldActionPerformed
 
     }//GEN-LAST:event_tourfieldActionPerformed
 
-    public void showtour() 
-    {
-         try 
-            {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                con = DriverManager.getConnection("jdbc:sqlserver://IKAY\\MSSQLSERVERIK;databaseName=Library;user=sa;password=9815");
-                //stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                stat = con.prepareStatement("INSERT INTO tourtable VALUES(?)");
-                String tfield = tourfield.getText().trim();
-                
-                stat.setString(1, tfield);
-                
-                stat.executeUpdate();
-                
-                JOptionPane.showMessageDialog(null, "Successful");
-            } 
-            catch (Exception e) 
-            {
-                JOptionPane.showMessageDialog(null, e);
-            }
-     view();    
+    public void addtour() {
+        try {
+
+            stat = con.prepareStatement("INSERT INTO tourtable (Tourtlo, Tourprice ) VALUES(?, ?)");
+
+            String tfield = tourfield.getText().trim();
+            stat.setString(1, tfield);
+
+            int pfield = Integer.parseInt(Pricefield.getText().trim());
+            stat.setInt(2, pfield);
+
+            stat.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Successful");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Could not add details");
+        }
+
+        view();
     }
-    
-    public void view()
-    {   
-            try {
-            stat = con.prepareStatement("SELECT Tid as 'SNo', Tourtlo as 'Tour Location' from tourtable  ");
+
+    public void addpricentour() {
+        try {
+            stat = con.prepareStatement("INSERT INTO pricetable (Tourprice) VALUES(?)");
+            int pfield = Integer.parseInt(Pricefield.getText().trim());
+
+            stat.setInt(1, pfield);
+
+            stat.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("duplicate price inserted");
+        }
+        //view();
+        addtour();
+    }
+
+    public void view() {
+        try {
+            stat = con.prepareStatement("SELECT Tiid as 'ID', Tourtlo as 'Tour Location', Tourprice as 'Price' from tourtable  ");
             rs = stat.executeQuery();
-           
-            
-            
+
             while (rs.next()) {
-                
-                String dat[] ={String.valueOf(rs.getString("SNo")), rs.getString("Tour Location")  };
+
+                String dat[] = {String.valueOf(rs.getInt("ID")), rs.getString("Tour Location"), String.valueOf(rs.getInt("Price"))};
                 jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-                 DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();
-                 tblmodel.addRow(dat);
-                
-              
+                DefaultTableModel tblmodel = (DefaultTableModel) jTable1.getModel();
+                tblmodel.addRow(dat);
             }
-          
-            
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Could not retreve from server");
+        }
+
+    }
+
+//    public void viewbox() {
+//        try {
+//            stat = con.prepareStatement("SELECT Tourtlo as 'Tour Location' from tourtable  ");
+//            rs = stat.executeQuery();
+//
+//            while (rs.next()) {
+//
+//                String aa = rs.getString("Tour Location");
+//                //DefaultComboBoxModel model = (DefaultComboBoxModel)jComboBox_tourlocation.getModel();
+//                jComboBox_tourlocation.addItem(aa);
+//
+//            }
+//                //con.close();
+//
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, ex);
+//        }
+//
+//    }
+    public void delete() {
+        try {
+
+            int row = jTable1.getSelectedRow();
+            String value = (jTable1.getModel().getValueAt(row, 0).toString());
+
+            int n = JOptionPane.showConfirmDialog(this, "Do you want to delete this record?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (n == JOptionPane.YES_OPTION) {
+                int y = JOptionPane.showConfirmDialog(this, "There is no going back, are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (y == JOptionPane.YES_OPTION) {
+
+                    selectquery = "DELETE FROM tourtable WHERE Tiid=" + value;
+                    stat = con.prepareStatement(selectquery);
+                    stat.executeUpdate();
+
+                    JOptionPane.showMessageDialog(null, "Deleted");
+                    view();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Did not delete");
+                }
+            } else {
+                System.out.println("did not delete");
+            }
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-              
     }
-    
-     public void viewbox()
-    {   
-            try {
-            stat = con.prepareStatement("SELECT Tourtlo as 'Tour Location' from tourtable  ");
-            rs = stat.executeQuery();
-           
-            
-            
-            while (rs.next()) {
-                
-                    String aa = rs.getString("Tour Location");
-                    //DefaultComboBoxModel model = (DefaultComboBoxModel)jComboBox_tourlocation.getModel();
-                     jComboBox_tourlocation.addItem(aa);
 
-            }
-                //con.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-              
+    public void reset() {
+        tourfield.setText(null);
+        Pricefield.setText(null);
     }
-    
-    public void delete()
-    {
-        try { 
-               
-           
-                int row = jTable1.getSelectedRow();
-                String value = (jTable1.getModel().getValueAt(row, 0).toString());
-            
-                int n = JOptionPane.showConfirmDialog(this, "Do you want to delete this record?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                if (n == JOptionPane.YES_OPTION) 
-                {
-                    int y = JOptionPane.showConfirmDialog(this, "There is no going back, are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (y == JOptionPane.YES_OPTION) 
-                               {
-
-                               selectquery = "DELETE FROM tourtable WHERE Tid="+value;
-                               stat = con.prepareStatement(selectquery);
-                               stat.executeUpdate();
-                               
-                               JOptionPane.showMessageDialog(null, "Deleted");
-                               view();
-                               } 
-                        else 
-                               {
-                                  JOptionPane.showMessageDialog(null, "Did not delete");
-                               }
-                }
-                else 
-                {
-                   System.out.println("did not delete");
-                }
-                
-               
-            } 
-           catch (SQLException ex) 
-           {
-                JOptionPane.showMessageDialog(null, ex);
-           }           
-    }
-            
     private void tourfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tourfieldKeyReleased
         // TODO add your handling code here:
 
@@ -461,8 +384,12 @@ public class location extends javax.swing.JFrame {
 
     private void addbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addbuttonMouseClicked
         // TODO add your handling code here:
-       
-       showtour();
+
+        if (tourfield.getText().length() > 1 && Pricefield.getText().length() > 1) {
+
+            addpricentour();
+            reset();
+        }
 
     }//GEN-LAST:event_addbuttonMouseClicked
 
@@ -487,70 +414,13 @@ public class location extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deletebuttonMouseExited
 
-    private void jComboBox_tourlocationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_tourlocationItemStateChanged
+    private void PricefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PricefieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_tourlocationItemStateChanged
+    }//GEN-LAST:event_PricefieldActionPerformed
 
-    private void jComboBox_tourlocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tourlocationActionPerformed
+    private void PricefieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PricefieldKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_tourlocationActionPerformed
-
-    private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
-        // TODO add your handling code here:
-        viewbox();
-    }//GEN-LAST:event_viewMouseClicked
-
-    private void viewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewMouseEntered
-
-    private void viewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewMouseExited
-
-    private void jComboBox_tourlocationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox_tourlocationFocusLost
-        // TODO add your handling code here:
-        jComboBox_tourlocation.removeAllItems();
-    }//GEN-LAST:event_jComboBox_tourlocationFocusLost
-
-    private void jComboBox_tourlocationKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox_tourlocationKeyReleased
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jComboBox_tourlocationKeyReleased
-
-    private void jComboBox_tourlocationMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox_tourlocationMouseReleased
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jComboBox_tourlocationMouseReleased
-
-    private void jComboBox_tourlocationMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox_tourlocationMouseExited
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_jComboBox_tourlocationMouseExited
-
-    private void jComboBox_tourlocation1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_tourlocation1ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_tourlocation1ItemStateChanged
-
-    private void jComboBox_tourlocation1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox_tourlocation1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_tourlocation1FocusLost
-
-    private void jComboBox_tourlocation1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox_tourlocation1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_tourlocation1MouseExited
-
-    private void jComboBox_tourlocation1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox_tourlocation1MouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_tourlocation1MouseReleased
-
-    private void jComboBox_tourlocation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tourlocation1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_tourlocation1ActionPerformed
-
-    private void jComboBox_tourlocation1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox_tourlocation1KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_tourlocation1KeyReleased
+    }//GEN-LAST:event_PricefieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -588,18 +458,16 @@ public class location extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextField Pricefield;
     private javax.swing.JLabel addbutton;
     private javax.swing.JLabel deletebutton;
     private javax.swing.JPanel idpanel;
-    private javax.swing.JPanel idpanel1;
-    private javax.swing.JComboBox jComboBox_tourlocation;
-    private javax.swing.JComboBox jComboBox_tourlocation1;
+    private javax.swing.JPanel idpanel2;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     public javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     public javax.swing.JTextField tourfield;
-    private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
 }

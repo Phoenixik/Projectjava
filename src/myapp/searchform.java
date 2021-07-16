@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package myapp;
 
 import java.sql.*;
@@ -14,7 +13,8 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class searchform extends javax.swing.JFrame {
-       Connection con;
+
+    Connection con;
     Statement stmt;
     PreparedStatement stat;
     String selectquery;
@@ -24,8 +24,8 @@ public class searchform extends javax.swing.JFrame {
      * Creates new form searchform
      */
     public searchform() {
-         
-               try {
+
+        try {
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
@@ -33,17 +33,12 @@ public class searchform extends javax.swing.JFrame {
             stmt = con.createStatement();
 
         } catch (Exception e) {
-            System.out.println("Error : " + e);
+            System.out.println("Error : " + "Could not connect to server");
         }
-               
+
         initComponents();
-        
 
             //myfunction();
-    
-        
-        
-        
         jTextField_ids.setText(null);
         //jTextField_fns.setEnabled(false);
 //        jTextField_ln.setEnabled(false);
@@ -56,7 +51,7 @@ public class searchform extends javax.swing.JFrame {
 //        toutlocation.setEnabled(false);
 //        jTextField_gn.setEnabled(false);
 //        jTextField_occu.setEnabled(false);
-        
+
 //        jTextField_id.setText(null);
 //        jTextField_fn.setText(null);
 //        jTextField_ln.setText(null);
@@ -111,8 +106,7 @@ public class searchform extends javax.swing.JFrame {
         jLabel_filesearch = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Search");
-        setAlwaysOnTop(true);
+        setTitle("SEARCH");
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -452,10 +446,11 @@ public class searchform extends javax.swing.JFrame {
         getContentPane().add(jPanel1, gridBagConstraints);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField_idsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_idsActionPerformed
-     
+
     }//GEN-LAST:event_jTextField_idsActionPerformed
 
     private void jTextField_fnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_fnsActionPerformed
@@ -465,20 +460,19 @@ public class searchform extends javax.swing.JFrame {
     private void jTextField_lnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_lnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_lnActionPerformed
-            
-        public ResultSet myfunction() {
+
+    public ResultSet myfunction() {
         try {
             stat = con.prepareStatement("select * from mynewtour where Tourid=? ");
             stat.setString(1, jTextField_ids.getText());
             rs = stat.executeQuery();
            // rs=jTextField_ids.getText();
-            
-            
+
             if (rs.next()) {
-               // jTextField_ids.setText(rs.getString("Tourid"));
+                // jTextField_ids.setText(rs.getString("Tourid"));
                 jTextField_fns.setText(rs.getString("Tourfn"));
                 jTextField_ln.setText(rs.getString("Tourln"));
-                jTextField_number.setText(String.valueOf(rs.getString("Tournumber")));
+                jTextField_number.setText(rs.getString("Tournumber"));
                 jTextField_mail.setText(rs.getString("Tourmail"));
                 jTextField_pr.setText(String.valueOf(rs.getInt("Tourprice")));
                 jTextField_tourdate.setText(rs.getString("Tourbed"));
@@ -488,17 +482,14 @@ public class searchform extends javax.swing.JFrame {
                 jTextField_gn.setText(rs.getString("Tourbgr"));
                 jTextField_occu.setText(rs.getString("Touroccu"));
             }
-          
-            
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "Please fill in correct ID");
         }
-              return rs;
-        }
-//    public void func() {
-//                
-//              rs = myfunction().findColumn(jTextField_ids.getText());
-//            }
+        return rs;
+    }
+
+
     private void jTextField_numberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_numberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_numberActionPerformed
@@ -537,14 +528,14 @@ public class searchform extends javax.swing.JFrame {
 
     private void jTextField_idsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_idsKeyReleased
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jTextField_idsKeyReleased
 
     private void jLabel_filesearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_filesearchMouseClicked
         // TODO add your handling code here:
-        
-            myfunction();
-       
+
+        myfunction();
+
 
     }//GEN-LAST:event_jLabel_filesearchMouseClicked
 

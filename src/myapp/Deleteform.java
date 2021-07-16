@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package myapp;
 
 import java.sql.*;
@@ -17,16 +16,16 @@ import net.proteanit.sql.DbUtils;
  * @author user
  */
 public class Deleteform extends javax.swing.JFrame {
-        Connection con;
+
+    Connection con;
     Statement stmt;
     PreparedStatement stat;
     String selectquery;
     ResultSet rs;
 
-    
     public Deleteform() {
         initComponents();
-        
+
         try {
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -35,29 +34,25 @@ public class Deleteform extends javax.swing.JFrame {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
         } catch (Exception e) {
-            System.out.println("Error : " + e);
+            System.out.println("Error : " + "Could not connect to server");
         }
-        
+
         display();
-        
+
     }
-  
+
     public void display() {
-        
-        
-    try
-        {
-                stat = con.prepareStatement("select Tourid as 'ID', Tourfn as 'First Name', Tourln as 'Last Name', Tournumber as 'Mobile no', Tourmail as 'Email', TourPrice as 'Price', Touroccu as 'Occupation', Tourtlo as 'Tour Location', Tourdays as 'No of days', Tourbind as 'Booking Date', Tourbed as 'Tour Date', Tourbgr as 'Gender' from mynewtour");
-                rs = stat.executeQuery();
-               
-                
-                //data will be added until finish 
-                while (rs.next()) 
-                {
-               String id = String.valueOf(rs.getInt("ID"));
+
+        try {
+            stat = con.prepareStatement("select Tourid as 'ID', Tourfn as 'First Name', Tourln as 'Last Name', Tournumber as 'Mobile no', Tourmail as 'Email', TourPrice as 'Price', Touroccu as 'Occupation', Tourtlo as 'Tour Location', Tourdays as 'No of days', Tourbind as 'Booking Date', Tourbed as 'Tour Date', Tourbgr as 'Gender' from mynewtour");
+            rs = stat.executeQuery();
+
+            //data will be added until finish 
+            while (rs.next()) {
+                String id = String.valueOf(rs.getInt("ID"));
                 String fn = rs.getString("First Name");
                 String ln = rs.getString("Last Name");
-                String ntn = String.valueOf(rs.getInt("Mobile no"));
+                String ntn = rs.getString("Mobile no");
                 String mail = rs.getString("Email");
                 String price = String.valueOf(rs.getInt("Price"));
                 String occu = rs.getString("Occupation");
@@ -65,29 +60,23 @@ public class Deleteform extends javax.swing.JFrame {
                 String days = rs.getString("No of days");
                 String bed = rs.getString("Tour Date");
                 String bind = rs.getString("Booking Date");
-                String bgr = rs.getString("Gender"); 
+                String bgr = rs.getString("Gender");
 
+                //string array to store data in jtable
+                String data[] = {id, fn, ln, ntn, mail, price, occu, tlo, days, bed, bind, bgr};
+                //jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_ALL_COLUMNS);
+                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                DefaultTableModel tblmodel = (DefaultTableModel) jTable1.getModel();
+                tblmodel.addRow(data);
 
-                 //string array to store data in jtable
-                 String  data[] = {id, fn, ln, ntn, mail, price, occu, tlo, days, bed, bind, bgr};
-                 //jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_ALL_COLUMNS);
-                 jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-                 DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();
-                 tblmodel.addRow(data);
-                 
-                 
-                 
-                }
+            }
                // DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();
-                //tblmodel.addRow(data);
-        } 
-            
-        catch (Exception e) 
-        {
-            JOptionPane.showMessageDialog(null, e);
+            //tblmodel.addRow(data);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Could not retrieve from database");
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -101,7 +90,7 @@ public class Deleteform extends javax.swing.JFrame {
         jLabelbookeddetailsform = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Delete");
+        setTitle("DELETE");
         setAlwaysOnTop(true);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
@@ -209,6 +198,7 @@ public class Deleteform extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void deletebuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletebuttonMouseClicked
@@ -217,43 +207,34 @@ public class Deleteform extends javax.swing.JFrame {
 
     private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
         // TODO add your handling code here:
-    
+
         ikbook k = new ikbook();
-           try { 
-               
-           
-                int row = jTable1.getSelectedRow();
-                String value = (jTable1.getModel().getValueAt(row, 0).toString());
-            
-                int n = JOptionPane.showConfirmDialog(this, "Do you want to delete this record?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        try {
 
-                if (n == JOptionPane.YES_OPTION) 
-                {
-                    int y = JOptionPane.showConfirmDialog(this, "There is no going back, are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (y == JOptionPane.YES_OPTION) 
-                               {
+            int row = jTable1.getSelectedRow();
+            String value = (jTable1.getModel().getValueAt(row, 0).toString());
 
-                               selectquery = "DELETE FROM mynewtour WHERE Tourid="+value;
-                               stat = con.prepareStatement(selectquery);
-                               stat.executeUpdate();
-                               display();
-                               } 
-                        else 
-                               {
-                                  display();
-                               }
+            int n = JOptionPane.showConfirmDialog(this, "Do you want to delete this record?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (n == JOptionPane.YES_OPTION) {
+                int y = JOptionPane.showConfirmDialog(this, "There is no going back, are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (y == JOptionPane.YES_OPTION) {
+
+                    selectquery = "DELETE FROM mynewtour WHERE Tourid=" + value;
+                    stat = con.prepareStatement(selectquery);
+                    stat.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Delete Successful");
+                    display();
+                } else {
+                    display();
                 }
-                else 
-                {
-                   display();
-                }
-                
-               
-            } 
-           catch (SQLException ex) 
-           {
-                JOptionPane.showMessageDialog(null, ex);
-           }            
+            } else {
+                display();
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Did not delete");
+        }
     }//GEN-LAST:event_deletebuttonActionPerformed
 
     /**
